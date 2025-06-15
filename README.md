@@ -22,12 +22,12 @@ Desenvolver uma aplicação web para um petshop, com funcionalidades voltadas pa
 
 * Gabriel Ferreira Conceição
 * Giovanna Salem Gonella
-* Maria Claro Campos Profeta
+* Maria Clara Campos Profeta
 * Guilherme Fernandes Dario de Carvalho
 * Caroline Cristine de Souza
 * Matheus Gustavo da Silva Santos
 * Richard Martins Costa Santos
-* Bruno Martins
+* Bruno Martins Oliveira
 
 ## 📌 Status
 ✅ Projeto finalizado e entregue como parte da avaliação de PI.
