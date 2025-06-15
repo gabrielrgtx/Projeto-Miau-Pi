@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miau & Auau - Painel do Tutor</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0e6ef;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .header-left .logo h1 {
+            color: #8c52ff; 
+            margin: 0;
+            font-family: 'Chewy', sans-serif;
+            font-size: 28px;
+        }
+
+        .header-right {
+            font-size: 16px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-right button#logout-button {
+            background-color: #ff8c00; 
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right button#logout-button:hover {
+            background-color: #e07b00;
+        }
+
+        .header-right .header-button {
+            background-color: #6c757d; 
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .header-right .header-button:hover {
+            background-color: #5a6268;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #8c52ff;
+            margin-bottom: 25px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        section h3 {
+            color: #ff8c00;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ff8c00;
+            padding-bottom: 5px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .card h4 {
+            color: #8c52ff;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .consulta-item { 
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .consulta-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .consulta-item p strong {
+            color: #333;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .action-buttons button {
+            background-color: #8c52ff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .action-buttons button:hover {
+            background-color: #703ade;
+        }
+
+        #voltar-painel-button-tutores {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #voltar-painel-button-tutores:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <img src="img/logo1.png" alt="Logo Miau & Auau">
+                <h1>Miau & Auau</h1>
+            </div>
+            <span>Painel do Tutor</span>
+        </div>
+        <div class="header-right">
+            Bem-vindo(a), <span id="user-email">Tutor</span>!
+            <a href="admin-dashboard.html" class="button secondary header-button">Voltar ao Painel</a>
+            <button id="logout-button">Sair</button>
+        </div>
+    </header>
+
+    <main>
+        <h2>Seu Painel de Acesso Rápido</h2>
+
+        <section id="pets-section">
+            <h3>Seus Pets Cadastrados</h3>
+            <div id="pets-list" class="card-container">
+                <p>Carregando seus pets...</p>
+            </div>
+            <div class="action-buttons">
+                <button id="cadastrar-pet-button">Cadastrar Novo Pet</button>
+            </div>
+        </section>
+
+        <section id="consultas-section">
+            <h3>Suas Próximas Consultas</h3>
+            <div id="consultas-list" class="card-container">
+                <p>Carregando próximas consultas...</p>
+            </div>
+            <div class="action-buttons">
+                <button id="marcar-consulta-button">Marcar Nova Consulta</button>
+            </div>
+        </section>
+
+        <section id="historico-section">
+            <h3>Histórico de Consultas e Exames</h3>
+            <div id="historico-list" class="card-container">
+                <p>Carregando histórico...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Miau & Auau. Painel do Tutor.</p>
+        <button id="voltar-painel-button-tutores" class="button secondary" style="margin-top: 10px;">Voltar ao Painel Inicial</button>
+    </footer>
+
+    <script src="js/script-dashboard-universal.js"></script>
+    <script src="js/script-tutor-dashboard.js"></script>
+</body>
+</html>

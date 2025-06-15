@@ -1,0 +1,727 @@
+@import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+
+:root {
+  --roxo: #5A3BB3;
+  --amarelo: #ffeb3b;
+  --laranja: #ff9800;
+  --laranja-hover: #e68900;
+  --roxo-escuro: #4a0f6e;
+  --cinza-claro: #f9f9f9;
+  --branco: #ffffff;
+  --preto: #000000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--branco);
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.rounded {
+  border-radius: 10px;
+}
+
+.shadow {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 90px;
+  background-color: var(--branco);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  gap: 0; 
+}
+
+.header-logo {
+  display: flex;
+  margin-left: -60px;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-empresa {
+  height: 80px;        
+  width: 160px;         
+  max-width: none;     
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: static;
+}
+
+.nome-empresa {
+  font-family: 'Chewy', cursive;
+  color: var(--roxo);
+  font-size: 25px;
+  letter-spacing: 1px;
+  margin-left: -35px;
+}
+
+.nav-principal {
+  display: flex;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.nav-auth {
+  display: flex;
+  align-items: center;
+  margin-right: 1.5rem; 
+}
+
+.nav-divider {
+  margin: 0 .5rem;
+  color: #ccc;
+}
+
+.nav-auth a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s, transform 0.3s;
+}
+.nav-auth a:hover {
+  color: #e68900;
+  transform: translateY(-2px);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: #555;
+  margin-right: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:last-child {
+  margin-right: 0;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s;
+}
+.nav-links a:hover {
+  color: #5A3BB3;
+}
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+
+nav ul {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li a {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--roxo);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+nav ul li a:hover {
+  color: var(--laranja);
+}
+
+.btn {
+  background-color: var(--laranja);
+  color: var(--branco);
+  border: none;
+  text-decoration: none;
+  font-family: 'Chewy', cursive;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s, transform 0.2s;
+  border-radius: 80px;
+  padding: 10px 28px;
+  font-size: 17px;
+  margin-left: 0;
+}
+
+.btn:hover {
+  background-color: var(--laranja-hover);
+  transform: scale(1.05);
+}
+
+.btn--grande {
+  font-size: 20px;
+  font-family: 'Chewy', cursive;
+  padding: 10px 25px;
+}
+
+.btn--circulo {
+  border-radius: 400px;
+}
+
+.hero {
+  position: relative;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--branco);
+  overflow: hidden;
+  padding-left: 60px;
+}
+
+@media (max-width: 900px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 12px;
+  }
+  nav ul {
+    gap: 14px;
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  background: var(--roxo-escuro);
+  clip-path: ellipse(75% 100% at 40% 50%);
+}
+
+.hero-unica {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-content {
+  position: relative;
+  text-align: left;
+  color: var(--branco);
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 1;
+  margin-left: -670px;
+  padding: 20px 0;
+  max-width: 800px;
+}
+
+.hero h1 {
+  font-size: 2.5em;
+  font-family: 'Chewy', cursive;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.destaque {
+  color: var(--amarelo);
+}
+
+.servicos {
+  padding: 50px;
+  text-align: center;
+}
+
+.servicos h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: var(--branco);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--preto);
+  text-align: center;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  background-color: var(--roxo);
+  color: var(--branco);
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card-image {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover .card-image {
+  transform: rotate(8deg) scale(1.1);
+}
+
+.card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-family: 'Arial', cursive;
+  transition: color 0.3s ease-in-out;
+}
+
+.card:hover h3 {
+  color: var(--amarelo);
+}
+
+.card p,
+.card a {
+  font-family: Arial, sans-serif;
+}
+
+.card p {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.card a {
+  display: block;
+  margin-top: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--roxo);
+  transition: color 0.3s ease-in-out;
+}
+
+.card:hover a {
+  color: var(--amarelo);
+}
+
+.nossos-numeros {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: var(--branco);
+}
+
+.nossos-numeros h2 {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: var(--roxo);
+}
+
+.s-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.numero-item {
+  text-align: center;
+}
+
+.numero {
+  display: block;
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--roxo);
+  font-family: 'Chewy', cursive;
+  margin-bottom: 10px;
+}
+
+.legenda {
+  font-size: 14px;
+  color: #555;
+}
+
+.avaliacoes {
+  text-align: center;
+  padding: 50px;
+  background-color: var(--cinza-claro);
+}
+
+.avaliacoes h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.foto-avaliador {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comentarios {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.comentario {
+  background: var(--branco);
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  color: var(--preto); 
+}
+
+.comentario:hover {
+  transform: scale(1.05);
+}
+
+.comentario h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-family: 'Arial', cursive;
+}
+
+.comentario p {
+  font-size: 16px;
+}
+
+.profissionais {
+  text-align: center;
+  padding: 20px;
+  background-color: #fdf3dc;
+}
+
+.profissionais h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  font-family: 'Arial', cursive;
+}
+
+.imagens {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 20px;
+}
+
+.imagens figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;       
+  text-align: center;
+}
+
+.imagens figure img {
+  width: 150px;      
+  height: 150px;     
+  border-radius: 50%; 
+  object-fit: cover;  
+  background-color: var(--branco);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imagens figure img:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.imagens figcaption {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--roxo);
+  font-family: 'Arial', cursive;
+  word-wrap: break-word;
+}
+
+footer {
+  background-color: #fdf3dc;
+  color: var(--preto);
+  padding: 0px 40px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-container {
+  position: relative;
+  width: 100%;
+  font-family: 'Chewy', cursive;
+  max-width: 1200px;
+  margin: 5px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1px 10px;
+}
+
+.footer-info {
+  margin: 0;
+  text-align: center;
+}
+
+.footer-info.empresa {
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  margin-right: 10px;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-info.empresa .logo-nome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: -110px !important;
+}
+
+.footer-info h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: var(--roxo);  
+}
+
+.footer-info p,
+.footer-info ul li {
+  font-size: 14px;
+  color: var(--preto); 
+  margin: 0;
+  padding: 0;
+}
+
+.footer-info ul {
+  list-style: disc;
+  margin-left: 16px;   
+  padding: 0;
+}
+
+.footer-info.empresa .nome-empresa-footer {
+  color: var(--roxo);
+  font-size: 20px;
+  margin-left: -100px;
+}
+
+.footer-info .redes-sociais a img {
+  width: 30px;
+  height: 30px;
+}
+
+.footer-info.contato p {
+  color: var(--preto);
+}
+
+.footer-info.contato a {
+  color: var(--roxo);
+  text-decoration: none;
+}
+.footer-info.contato a:hover {
+  color: var(--laranja);
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.logo-google {
+  width: 180px;
+  height: auto;
+  vertical-align: middle;
+}
+
+.faixa-roxa {
+  background-color: var(--roxo);
+  color: var(--branco);
+  padding: 40px 20px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.faixa-roxa-conteudo {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.faixa-roxa h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  font-family: 'Chewy', cursive;
+}
+
+@media (max-width: 1280px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-container {
+    max-width: 1000px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .container,
+  .footer-container {
+    max-width: 100%;
+    padding: 0 8px;
+  }
+  .cards {
+    grid-template-columns: 1fr;
+  }
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .logo-footer {
+    position: static;
+    width: 110px !important;
+    margin-bottom: 8px;
+  }
+  .nome-empresa-footer {
+    font-size: 28px;
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 8px;
+  }
+  .hero {
+    padding: 40px 0;
+    height: auto;
+  }
+  .hero h1 {
+    font-size: 1.3em;
+  }
+  .servicos {
+    padding: 20px 0;
+  }
+  .cards {
+    gap: 12px;
+  }
+  .card {
+    padding: 12px;
+  }
+  .footer-container {
+    padding: 12px 4px;
+    gap: 8px;
+  }
+  .footer-info {
+    margin: 0;
+    font-size: 14px;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .footer-container,
+  .footer-container a,
+  .footer-info p,
+  .footer-info ul li {
+    color: var(--branco) !important;
+  }
+  
+  .comentario {
+    color: var(--roxo) !important;
+  }
+
+  body {
+    background-color: var(--preto);
+    color: var(--cinza-claro);
+  }
+  header {
+    background-color: var(--preto);
+    box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.05);
+  }
+  nav ul li a {
+    color: var(--cinza-claro);
+  }
+  nav ul li a:hover {
+    color: var(--laranja);
+  }
+  .btn {
+    background-color: var(--laranja);
+    color: var(--preto);
+  }
+  .card {
+    background-color: #2a2a2a;
+    color: var(--cinza-claro);
+    border-color: var(--cinza-claro);
+    box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.05);
+  }
+  .card:hover {
+    background-color: var(--roxo);
+    color: var(--cinza-claro);
+  }
+  .nossos-numeros,
+  .avaliacoes,
+  .profissionais,
+  footer,
+  .faixa-roxa {
+    background-color: #1a1a1a;
+    color: var(--cinza-claro);
+  }
+  img {
+    filter: brightness(0.9);
+  }
+}

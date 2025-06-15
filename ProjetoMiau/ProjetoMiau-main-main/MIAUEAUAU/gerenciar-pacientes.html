@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miau & Auau - Gerenciar Pacientes</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0e6ef; 
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .header-left .logo h1 {
+            color: #8c52ff;
+            margin: 0;
+            font-family: 'Chewy', sans-serif;
+            font-size: 28px;
+        }
+
+        .header-right {
+            font-size: 16px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-right button#logout-button {
+            background-color: #ff8c00;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right button#logout-button:hover {
+            background-color: #e07b00;
+        }
+
+        .header-right .header-button {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .header-right .header-button:hover {
+            background-color: #5a6268;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #8c52ff;
+            margin-bottom: 25px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        section h3 {
+            color: #ff8c00;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ff8c00;
+            padding-bottom: 5px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .card h4 {
+            color: #8c52ff;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .action-buttons button {
+            background-color: #8c52ff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .action-buttons button:hover {
+            background-color: #703ade;
+        }
+
+        #paciente-form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group input[type="number"],
+        .form-group input[type="date"] {
+            width: calc(100% - 24px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group small {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        #paciente-form button[type="submit"] {
+            margin-right: 10px;
+            width: auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #8c52ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #paciente-form button[type="submit"]:hover {
+            background-color: #703ade;
+        }
+
+        #cancelar-edicao {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        #cancelar-edicao:hover {
+            background-color: #5a6268;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        #pacientes-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #pacientes-table th,
+        #pacientes-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        #pacientes-table th {
+            background-color: #f2f2f2;
+            color: #555;
+            font-weight: bold;
+        }
+
+        #pacientes-table tbody tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        #pacientes-table tbody tr:hover {
+            background-color: #e9e9e9;
+        }
+
+        #pacientes-table td .button {
+            padding: 5px 10px;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        #pacientes-table td .button.edit {
+            background-color: #ff8c00;
+        }
+
+        #pacientes-table td .button.edit:hover {
+            background-color: #e07b00;
+        }
+
+        #pacientes-table td .button.delete {
+            background-color: #dc3545;
+        }
+
+        #pacientes-table td .button.delete:hover {
+            background-color: #c82333;
+        }
+
+        #form-message, #list-message {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            display: block;
+        }
+
+        #form-message.success, #list-message.success {
+            color: green;
+        }
+
+        #form-message.error, #list-message.error {
+            color: red;
+        }
+
+        #voltar-painel-button-pacientes {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #voltar-painel-button-pacientes:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <img src="img/logo1.png" alt="Logo Miau & Auau">
+                <h1>Miau & Auau</h1>
+            </div>
+            <span>Gerenciar Pacientes</span>
+        </div>
+        <div class="header-right">
+            Bem-vindo(a), <span id="user-email">Usuário</span>!
+            <a href="admin-dashboard.html" class="button secondary header-button">Voltar ao Painel</a>
+            <button id="logout-button">Sair</button>
+        </div>
+    </header>
+
+    <main>
+        <h2>Gerenciamento de Pacientes</h2>
+
+        <section id="form-section">
+            <h3>Adicionar / Editar Paciente</h3>
+            <form id="paciente-form">
+                <input type="hidden" id="paciente-id">
+                
+                <div class="form-group">
+                    <label for="nome-pet">Nome do Pet:<span class="required">*</span></label>
+                    <input type="text" id="nome-pet" required>
+                </div>
+                <div class="form-group">
+                    <label for="especie">Espécie:<span class="required">*</span></label>
+                    <input type="text" id="especie" required>
+                </div>
+                <div class="form-group">
+                    <label for="raca">Raça:<span class="required">*</span></label>
+                    <input type="text" id="raca" required>
+                </div>
+                <div class="form-group">
+                    <label for="data-nascimento">Data de Nascimento:</label>
+                    <input type="date" id="data-nascimento">
+                </div>
+                <div class="form-group">
+                    <label for="peso">Peso (kg):<span class="required">*</span></label>
+                    <input type="number" id="peso" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="tutor-id">ID do Tutor:<span class="required">*</span></label>
+                    <input type="number" id="tutor-id" required>
+                    <small>Este deve ser o ID de um Tutor existente.</small>
+                </div>
+                
+                <button type="submit" class="button primary">Salvar Paciente</button>
+                <button type="button" id="cancelar-edicao" class="button secondary">Cancelar Edição</button>
+                <p id="form-message"></p>
+            </form>
+        </section>
+
+        <section id="list-section">
+            <h3>Lista de Pacientes</h3>
+            <div class="table-responsive">
+                <table id="pacientes-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome Pet</th>
+                            <th>Espécie</th>
+                            <th>Raça</th>
+                            <th>Nasc.</th>
+                            <th>Peso</th>
+                            <th>ID Tutor</th>
+                            <th>Nome Tutor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            <p id="list-message"></p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Miau & Auau. Gerenciamento de Pacientes.</p>
+        <button id="voltar-painel-button-pacientes" class="button secondary" style="margin-top: 10px;">Voltar ao Painel Inicial</button>
+    </footer>
+
+    <script>
+        const API_PACIENTES_URL = 'http://localhost:8080/api/pacientes';
+        const API_TUTORES_URL = 'http://localhost:8080/api/tutores';
+
+        const LOGIN_PAGE_URL = 'Login(1920).html';
+        const ADMIN_DASHBOARD_URL = 'admin-dashboard.html';
+        const FUNCIONARIO_DASHBOARD_URL = 'funcionario-dashboard.html';
+
+        function getUserEmail() { return localStorage.getItem('userEmail'); }
+        function getUserPassword() { return localStorage.getItem('userPassword'); }
+        function getUserRole() { return localStorage.getItem('userRole'); }
+
+        function handleLogout() {
+            console.log("DEBUG: Botão Sair clicado. Realizando logout...");
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userPassword');
+            window.location.href = LOGIN_PAGE_URL;
+        }
+
+        async function fetchAuthenticated(url, options = {}) {
+            const userEmail = getUserEmail();
+            const userPassword = getUserPassword();
+
+            if (!userEmail || !userPassword) {
+                alert('Sua sessão expirou ou credenciais incompletas. Por favor, faça login novamente.');
+                window.location.href = LOGIN_PAGE_URL;
+                throw new Error('Credenciais de autenticação ausentes.');
+            }
+
+            const authHeader = 'Basic ' + btoa(`${userEmail}:${userPassword}`);
+            
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': authHeader,
+                ...options.headers
+            };
+
+            const config = {
+                ...options,
+                headers: headers
+            };
+
+            const response = await fetch(url, config);
+
+            if (response.status === 401 || response.status === 403) {
+                alert('Acesso negado. Você não tem permissão para esta ação. Por favor, faça login novamente.');
+                window.location.href = LOGIN_PAGE_URL;
+                throw new Error('Acesso não autorizado.');
+            }
+
+            return response;
+        }
+
+        function showFormMessage(message, isError = false) {
+            const messageElement = document.getElementById('form-message');
+            messageElement.textContent = message;
+            messageElement.className = isError ? 'error' : 'success';
+            messageElement.style.display = 'block';
+        }
+
+        function showListMessage(message, isError = false) {
+            const messageElement = document.getElementById('list-message');
+            messageElement.textContent = message;
+            messageElement.className = isError ? 'error' : 'success';
+            messageElement.style.display = 'block';
+        }
+
+        function clearForm() {
+            document.getElementById('paciente-id').value = '';
+            document.getElementById('nome-pet').value = '';
+            document.getElementById('especie').value = '';
+            document.getElementById('raca').value = '';
+            document.getElementById('data-nascimento').value = '';
+            document.getElementById('peso').value = '';
+            document.getElementById('tutor-id').value = '';
+            showFormMessage('', false);
+        }
+
+        async function loadPacientes() {
+            const tbody = document.querySelector('#pacientes-table tbody');
+            tbody.innerHTML = '<tr><td colspan="9">Carregando pacientes...</td></tr>';
+            showListMessage('', false);
+
+            try {
+                const response = await fetchAuthenticated(API_PACIENTES_URL);
+                const pacientes = await response.json();
+
+                tbody.innerHTML = '';
+
+                if (pacientes.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="9">Nenhum paciente cadastrado.</td></tr>';
+                    return;
+                }
+
+                pacientes.forEach(paciente => {
+                    const row = tbody.insertRow();
+                    row.insertCell().textContent = paciente.id;
+                    row.insertCell().textContent = paciente.nome;
+                    row.insertCell().textContent = paciente.especie;
+                    row.insertCell().textContent = paciente.raca;
+                    row.insertCell().textContent = paciente.dataNascimento ? new Date(paciente.dataNascimento).toLocaleDateString() : 'N/A';
+                    row.insertCell().textContent = paciente.peso;
+                    row.insertCell().textContent = paciente.tutor ? paciente.tutor.id : 'N/A';
+                    row.insertCell().textContent = paciente.tutor && paciente.tutor.user ? paciente.tutor.user.nome + ' ' + paciente.tutor.user.sobrenome : 'N/A';
+
+                    const actionsCell = row.insertCell();
+                    const editButton = document.createElement('button');
+                    editButton.textContent = 'Editar';
+                    editButton.className = 'button edit';
+                    editButton.addEventListener('click', () => editPaciente(paciente));
+                    actionsCell.appendChild(editButton);
+
+                    const userRole = getUserRole();
+                    if (userRole === 'ROLE_ADMIN') {
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Excluir';
+                        deleteButton.className = 'button delete';
+                        deleteButton.addEventListener('click', () => deletePaciente(paciente.id));
+                        actionsCell.appendChild(deleteButton);
+                    }
+                });
+                showListMessage('Pacientes carregados com sucesso.', false);
+
+            } catch (error) {
+                showListMessage(`Erro ao carregar pacientes: ${error.message}`, true);
+                console.error('Erro ao carregar pacientes:', error);
+            }
+        }
+
+        function editPaciente(paciente) {
+            document.getElementById('paciente-id').value = paciente.id;
+            document.getElementById('nome-pet').value = paciente.nome;
+            document.getElementById('especie').value = paciente.especie;
+            document.getElementById('raca').value = paciente.raca;
+            document.getElementById('data-nascimento').value = paciente.dataNascimento || '';
+            document.getElementById('peso').value = paciente.peso;
+            document.getElementById('tutor-id').value = paciente.tutor ? paciente.tutor.id : '';
+
+            showFormMessage('Editando paciente...', false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('cancelar-edicao').addEventListener('click', () => {
+            clearForm();
+            showFormMessage('Formulário limpo.', false);
+        });
+
+        document.getElementById('paciente-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const pacienteId = document.getElementById('paciente-id').value;
+            const nome = document.getElementById('nome-pet').value.trim();
+            const especie = document.getElementById('especie').value.trim();
+            const raca = document.getElementById('raca').value.trim();
+            const dataNascimento = document.getElementById('data-nascimento').value;
+            const peso = parseFloat(document.getElementById('peso').value);
+            const tutorId = document.getElementById('tutor-id').value;
+
+            if (!nome || !especie || !raca || !peso || !tutorId) {
+                showFormMessage('Por favor, preencha todos os campos obrigatórios.', true);
+                return;
+            }
+            if (isNaN(peso) || peso <= 0) {
+                showFormMessage('Peso deve ser um número positivo.', true);
+                return;
+            }
+            if (isNaN(tutorId) || parseInt(tutorId) <= 0) {
+                showFormMessage('ID do Tutor deve ser um número positivo.', true);
+                return;
+            }
+
+            const pacienteData = {
+                id: pacienteId === '' ? null : Number(pacienteId),
+                nome: nome,
+                especie: especie,
+                raca: raca,
+                dataNascimento: dataNascimento,
+                peso: peso,
+                tutor: { id: Number(tutorId) }
+            };
+
+            let url = API_PACIENTES_URL;
+            let method = 'POST';
+
+            if (pacienteId) {
+                url = `${API_PACIENTES_URL}/${pacienteId}`;
+                method = 'PUT';
+            }
+            
+            try {
+                const response = await fetchAuthenticated(url, {
+                    method: method,
+                    body: JSON.stringify(pacienteData)
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showFormMessage(data.message || `Paciente ${pacienteId ? 'atualizado' : 'adicionado'} com sucesso!`, false);
+                    clearForm();
+                    loadPacientes();
+                } else {
+                    const errorMessage = data.message || 'Erro ao salvar paciente.';
+                    showFormMessage(errorMessage, true);
+                }
+
+            } catch (error) {
+                showFormMessage(`Erro na requisição: ${error.message}`, true);
+                console.error('Erro ao salvar paciente:', error);
+            }
+        });
+
+
+        async function deletePaciente(id) {
+            if (!confirm('Tem certeza que deseja excluir este paciente?')) {
+                return;
+            }
+            showListMessage(`Excluindo paciente ${id}...`, false);
+
+            try {
+                const response = await fetchAuthenticated(`${API_PACIENTES_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.status === 204) {
+                    showListMessage('Paciente excluído com sucesso!', false);
+                    loadPacientes();
+                } else {
+                    const errorData = await response.json();
+                    const errorMessage = errorData.message || 'Erro ao excluir paciente.';
+                    showListMessage(errorMessage, true);
+                }
+            } catch (error) {
+                showListMessage(`Erro na requisição de exclusão: ${error.message}`, true);
+                console.error('Erro ao excluir paciente:', error);
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const userRole = getUserRole();
+
+            if (userRole !== 'ROLE_ADMIN' && userRole !== 'ROLE_FUNCIONARIO' && userRole !== 'ROLE_VETERINARIO') {
+                alert('Acesso negado. Você não tem permissão para gerenciar pacientes.');
+                window.location.href = 'Login(1920).html';
+                return;
+            }
+
+            const voltarPainelButton = document.getElementById('voltar-painel-button-pacientes');
+            if (voltarPainelButton) {
+                voltarPainelButton.addEventListener('click', () => {
+                    let redirectUrl;
+                    switch(userRole) {
+                        case 'ROLE_ADMIN':
+                            redirectUrl = ADMIN_DASHBOARD_URL;
+                            break;
+                        case 'ROLE_FUNCIONARIO':
+                        case 'ROLE_VETERINARIO':
+                            redirectUrl = FUNCIONARIO_DASHBOARD_URL;
+                            break;
+                        default:
+                            redirectUrl = LOGIN_PAGE_URL;
+                    }
+                    window.location.href = redirectUrl;
+                });
+            } else {
+                console.error("DEBUG: Botão 'Voltar ao Painel Inicial' não encontrado no HTML!");
+            }
+
+            loadPacientes();
+        });
+    </script>
+</body>
+</html>

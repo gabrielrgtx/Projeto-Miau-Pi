@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miau & Auau - Painel do Administrador</title>
+    <link rel="stylesheet" href="css/styles-dashboard.css">
+    <style>
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <img src="img/logo1.png" alt="Logo Miau & Auau">
+                <h1>Miau & Auau</h1>
+            </div>
+            <span>Painel do Administrador</span>
+        </div>
+        <div class="header-right">
+            Bem-vindo(a), <span id="user-email">Admin</span>!
+            <a href="admin-dashboard.html" class="button secondary header-button">Voltar ao Painel</a>
+            <button id="logout-button">Sair</button>
+        </div>
+    </header>
+
+    <main>
+        <h2>Visão Geral do Sistema</h2>
+
+        <section id="gerenciamento-usuarios">
+            <h3>Gerenciamento de Usuários</h3>
+            <div class="card-container">
+                <div class="card action-card">
+                    <h4>Funcionários</h4>
+                    <p>Adicionar, editar, excluir funcionários.</p>
+                    <button onclick="location.href='gerenciar-funcionarios.html'">Gerenciar</button>
+                </div>
+                <div class="card action-card">
+                    <h4>Veterinários</h4>
+                    <p>Adicionar, editar, excluir veterinários e horários.</p>
+                    <button onclick="location.href='gerenciar-veterinarios.html'">Gerenciar</button>
+                </div>
+                <div class="card action-card">
+                    <h4>Tutores</h4>
+                    <p>Visualizar e gerenciar perfis de tutores.</p>
+                    <button onclick="location.href='gerenciar-tutores.html'">Gerenciar</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="gerenciamento-clinica">
+            <h3>Gestão Clínica</h3>
+            <div class="card-container">
+                <div class="card action-card">
+                    <h4>Pacientes</h4>
+                    <p>Visualizar, editar e excluir informações dos pets.</p>
+                    <button onclick="location.href='gerenciar-pacientes.html'">Gerenciar</button>
+                </div>
+                <div class="card action-card">
+                    <h4>Consultas</h4>
+                    <p>Monitorar agendamentos e status das consultas.</p>
+                    <button onclick="location.href='gerenciar-consultas.html'">Gerenciar</button>
+                </div>
+                <div class="card action-card">
+                    <h4>Prontuários</h4>
+                    <p>Acesso completo aos históricos médicos.</p>
+                    <button onclick="location.href='gerenciar-prontuarios.html'">Visualizar</button>
+                </div>
+                <div class="card action-card">
+                    <h4>Serviços/Procedimentos</h4>
+                    <p>Gerenciar lista de serviços e preços.</p>
+                    <button onclick="location.href='gerenciar-procedimentos.html'">Gerenciar</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="relatorios-sistema">
+            <h3>Relatórios e Análises</h3>
+            <div class="card-container">
+                <div class="card action-card">
+                    <h4>Relatórios Financeiros</h4>
+                    <p>Análise de faturamento e custos.</p>
+                    <button onclick="location.href='gerenciar-relatorios.html'">Ver Relatórios</button>
+                </div>
+                <div class="card action-card">
+                    <h4>Relatórios de Atendimento</h4>
+                    <p>Desempenho da clínica e veterinários.</p>
+                    <button onclick="location.href='gerenciar-relatorios.html'">Ver Relatórios</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Miau & Auau. Painel do Administrador.</p>
+    </footer>
+
+    <script src="js/script-dashboard-universal.js"></script>
+    <script src="js/script-admin-dashboard.js"></script>
+</body>
+</html>

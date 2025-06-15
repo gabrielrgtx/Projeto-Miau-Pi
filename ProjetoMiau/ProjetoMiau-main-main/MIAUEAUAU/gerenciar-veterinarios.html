@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miau & Auau - Gerenciar Veterinários</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0e6ef;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .header-left .logo h1 {
+            color: #8c52ff;
+            margin: 0;
+            font-family: 'Chewy', sans-serif;
+            font-size: 28px;
+        }
+
+        .header-right {
+            font-size: 16px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-right button#logout-button {
+            background-color: #ff8c00;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right button#logout-button:hover {
+            background-color: #e07b00;
+        }
+
+        .header-right .header-button {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .header-right .header-button:hover {
+            background-color: #5a6268;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #8c52ff;
+            margin-bottom: 25px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        section h3 {
+            color: #ff8c00;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ff8c00;
+            padding-bottom: 5px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .card h4 {
+            color: #8c52ff;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .action-buttons button {
+            background-color: #8c52ff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .action-buttons button:hover {
+            background-color: #703ade;
+        }
+
+        #veterinario-form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: calc(100% - 24px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group small {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        #veterinario-form button[type="submit"] {
+            margin-right: 10px;
+            width: auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #8c52ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #veterinario-form button[type="submit"]:hover {
+            background-color: #703ade;
+        }
+
+        #cancelar-edicao {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        #cancelar-edicao:hover {
+            background-color: #5a6268;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        #veterinarios-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #veterinarios-table th,
+        #veterinarios-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        #veterinarios-table th {
+            background-color: #f2f2f2;
+            color: #555;
+            font-weight: bold;
+        }
+
+        #veterinarios-table tbody tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        #veterinarios-table tbody tr:hover {
+            background-color: #e9e9e9;
+        }
+
+        #veterinarios-table td .button {
+            padding: 5px 10px;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        #veterinarios-table td .button.edit {
+            background-color: #ff8c00;
+        }
+
+        #veterinarios-table td .button.edit:hover {
+            background-color: #e07b00;
+        }
+
+        #veterinarios-table td .button.delete {
+            background-color: #dc3545;
+        }
+
+        #veterinarios-table td .button.delete:hover {
+            background-color: #c82333;
+        }
+
+        #form-message, #list-message {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            display: block;
+        }
+
+        #form-message.success, #list-message.success {
+            color: green;
+        }
+
+        #form-message.error, #list-message.error {
+            color: red;
+        }
+
+        #voltar-painel-button-veterinarios {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #voltar-painel-button-veterinarios:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <img src="img/logo1.png" alt="Logo Miau & Auau">
+                <h1>Miau & Auau</h1>
+            </div>
+            <span>Gerenciar Veterinários</span>
+        </div>
+        <div class="header-right">
+            Bem-vindo(a), <span id="user-email">Usuário</span>!
+            <a href="admin-dashboard.html" class="button secondary header-button">Voltar ao Painel</a>
+            <button id="logout-button">Sair</button>
+        </div>
+    </header>
+
+    <main>
+        <h2>Gerenciamento de Veterinários</h2>
+
+        <section id="form-section">
+            <h3>Adicionar / Editar Veterinário</h3>
+            <form id="veterinario-form">
+                <input type="hidden" id="veterinario-id">
+                <input type="hidden" id="user-id">
+                
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="sobrenome">Sobrenome:</label>
+                    <input type="text" id="sobrenome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password"> 
+                    <small>Deixe em branco para não alterar a senha ao editar.</small>
+                </div>
+                <div class="form-group">
+                    <label for="crmv">CRMV:</label>
+                    <input type="text" id="crmv" required>
+                </div>
+                <div class="form-group">
+                    <label for="especialidade">Especialidade:</label>
+                    <input type="text" id="especialidade" required>
+                </div>
+                
+                <button type="submit" class="button primary">Salvar Veterinário</button>
+                <button type="button" id="cancelar-edicao" class="button secondary">Cancelar Edição</button>
+                <p id="form-message"></p>
+            </form>
+        </section>
+
+        <section id="list-section">
+            <h3>Lista de Veterinários</h3>
+            <div class="table-responsive">
+                <table id="veterinarios-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>CRMV</th>
+                            <th>Especialidade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            <p id="list-message"></p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Miau & Auau. Gerenciamento de Veterinários.</p>
+        <button id="voltar-painel-button-veterinarios" class="button secondary" style="margin-top: 10px;">Voltar ao Painel Inicial</button>
+    </footer>
+
+    <script>
+        // --- CONFIGURAÇÕES GERAIS ---
+        const API_VETERINARIOS_URL = 'http://localhost:8080/api/veterinarios';
+        const API_USERS_URL = 'http://localhost:8080/api/users';
+
+        // URLs de redirecionamento (relativas à raiz do servidor)
+        const LOGIN_PAGE_URL = 'Login(1920).html';
+        const ADMIN_DASHBOARD_URL = 'admin-dashboard.html';
+        const FUNCIONARIO_DASHBOARD_URL = 'funcionario-dashboard.html';
+
+        // --- FUNÇÕES AUXILIARES DE AUTENTICAÇÃO E REQUISIÇÃO (do script-dashboard-universal.js) ---
+        function getUserEmail() { return localStorage.getItem('userEmail'); }
+        function getUserPassword() { return localStorage.getItem('userPassword'); }
+        function getUserRole() { return localStorage.getItem('userRole'); }
+
+        // Função de logout (do script-dashboard-universal.js)
+        function handleLogout() {
+            console.log("DEBUG: Botão Sair clicado. Realizando logout...");
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userPassword');
+            window.location.href = LOGIN_PAGE_URL;
+        }
+
+        async function fetchAuthenticated(url, options = {}) {
+            const userEmail = getUserEmail();
+            const userPassword = getUserPassword();
+
+            if (!userEmail || !userPassword) {
+                alert('Sua sessão expirou ou credenciais incompletas. Por favor, faça login novamente.');
+                window.location.href = LOGIN_PAGE_URL;
+                throw new Error('Credenciais de autenticação ausentes.');
+            }
+
+            const authHeader = 'Basic ' + btoa(`${userEmail}:${userPassword}`);
+            
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': authHeader,
+                ...options.headers
+            };
+
+            const config = {
+                ...options,
+                headers: headers
+            };
+
+            const response = await fetch(url, config);
+
+            if (response.status === 401 || response.status === 403) {
+                alert('Acesso negado. Você não tem permissão para esta ação. Por favor, faça login novamente.');
+                window.location.href = LOGIN_PAGE_URL;
+                throw new Error('Acesso não autorizado.');
+            }
+
+            return response;
+        }
+
+        // --- FUNÇÕES DE FEEDBACK (do script-gerenciar-veterinarios.js) ---
+        function showFormMessage(message, isError = false) {
+            const messageElement = document.getElementById('form-message');
+            messageElement.textContent = message;
+            messageElement.className = isError ? 'error' : 'success';
+            messageElement.style.display = 'block';
+        }
+
+        function showListMessage(message, isError = false) {
+            const messageElement = document.getElementById('list-message');
+            messageElement.textContent = message;
+            messageElement.className = isError ? 'error' : 'success';
+            messageElement.style.display = 'block';
+        }
+
+        function clearForm() {
+            document.getElementById('veterinario-id').value = '';
+            document.getElementById('user-id').value = '';
+            document.getElementById('nome').value = '';
+            document.getElementById('sobrenome').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('cpf').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('crmv').value = '';
+            document.getElementById('especialidade').value = '';
+            document.getElementById('password').required = true;
+            document.getElementById('password').placeholder = '';
+            showFormMessage('', false);
+        }
+
+        // --- LÓGICA DE CARREGAMENTO E EXIBIÇÃO (do script-gerenciar-veterinarios.js) ---
+        async function loadVeterinarios() {
+            const tbody = document.querySelector('#veterinarios-table tbody');
+            tbody.innerHTML = '<tr><td colspan="6">Carregando veterinários...</td></tr>';
+            showListMessage('', false);
+
+            try {
+                const response = await fetchAuthenticated(API_VETERINARIOS_URL);
+                const veterinarios = await response.json();
+
+                tbody.innerHTML = '';
+
+                if (veterinarios.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6">Nenhum veterinário cadastrado.</td></tr>';
+                    return;
+                }
+
+                veterinarios.forEach(vet => {
+                    const row = tbody.insertRow();
+                    row.insertCell().textContent = vet.id;
+                    row.insertCell().textContent = vet.user.nome + ' ' + vet.user.sobrenome;
+                    row.insertCell().textContent = vet.user.email;
+                    row.insertCell().textContent = vet.crmv;
+                    row.insertCell().textContent = vet.especialidade;
+
+                    const actionsCell = row.insertCell();
+                    const editButton = document.createElement('button');
+                    editButton.textContent = 'Editar';
+                    editButton.className = 'button edit';
+                    editButton.addEventListener('click', () => editVeterinario(vet));
+                    actionsCell.appendChild(editButton);
+
+                    if (getUserRole() === 'ROLE_ADMIN' && vet.user.email !== getUserEmail()) {
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Excluir';
+                        deleteButton.className = 'button delete';
+                        deleteButton.addEventListener('click', () => deleteVeterinario(vet.id));
+                        actionsCell.appendChild(deleteButton);
+                    }
+                });
+                showListMessage('Veterinários carregados com sucesso.', false);
+
+            } catch (error) {
+                showListMessage(`Erro ao carregar veterinários: ${error.message}`, true);
+                console.error('Erro ao carregar veterinários:', error);
+            }
+        }
+
+        // --- LÓGICA DE EDIÇÃO (do script-gerenciar-veterinarios.js) ---
+        function editVeterinario(vet) {
+            document.getElementById('veterinario-id').value = vet.id;
+            document.getElementById('user-id').value = vet.user.id;
+            document.getElementById('nome').value = vet.user.nome;
+            document.getElementById('sobrenome').value = vet.user.sobrenome;
+            document.getElementById('email').value = vet.user.email;
+            document.getElementById('cpf').value = vet.user.cpf;
+            document.getElementById('crmv').value = vet.crmv;
+            document.getElementById('especialidade').value = vet.especialidade;
+            document.getElementById('password').value = '';
+            document.getElementById('password').required = false;
+            document.getElementById('password').placeholder = 'Deixe em branco para não alterar';
+            showFormMessage('Editando veterinário...', false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('cancelar-edicao').addEventListener('click', () => {
+            clearForm();
+            showFormMessage('Formulário limpo.', false);
+        });
+
+        // --- LÓGICA DE SUBMISSÃO DO FORMULÁRIO (ADD/EDIT) (do script-gerenciar-veterinarios.js) ---
+        document.getElementById('veterinario-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const veterinarioId = document.getElementById('veterinario-id').value;
+            const userId = document.getElementById('user-id').value;
+            const nome = document.getElementById('nome').value.trim();
+            const sobrenome = document.getElementById('sobrenome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const cpf = document.getElementById('cpf').value.trim().replace(/\D/g, '');
+            const password = document.getElementById('password').value;
+            const crmv = document.getElementById('crmv').value.trim();
+            const especialidade = document.getElementById('especialidade').value.trim();
+
+            if (!nome || !sobrenome || !email || !cpf || !crmv || !especialidade) {
+                showFormMessage('Por favor, preencha todos os campos obrigatórios (exceto senha na edição).', true);
+                return;
+            }
+            if (!veterinarioId && password.length < 6) { 
+                showFormMessage('A senha é obrigatória e deve ter no mínimo 6 caracteres para novos veterinários.', true);
+                return;
+            }
+
+            const userData = {
+                id: userId === '' ? null : Number(userId),
+                nome: nome,
+                sobrenome: sobrenome,
+                email: email,
+                cpf: cpf,
+                password: password,
+                role: 'ROLE_VETERINARIO'
+            };
+
+            const veterinarioData = {
+                id: veterinarioId === '' ? null : Number(veterinarioId),
+                crmv: crmv,
+                especialidade: especialidade,
+                user: userData
+            };
+
+            let url = API_VETERINARIOS_URL;
+            let method = 'POST';
+
+            if (veterinarioId) {
+                url = `${API_VETERINARIOS_URL}/${veterinarioId}`;
+                method = 'PUT';
+                if (password === '') {
+                    delete veterinarioData.user.password;
+                }
+            } else {
+                if (password === '') {
+                    showFormMessage('A senha é obrigatória para novos veterinários.', true);
+                    return;
+                }
+            }
+            
+            try {
+                const response = await fetchAuthenticated(url, {
+                    method: method,
+                    body: JSON.stringify(veterinarioData)
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showFormMessage(data.message || `Veterinário ${veterinarioId ? 'atualizado' : 'adicionado'} com sucesso!`, false);
+                    clearForm();
+                    loadVeterinarios();
+                } else {
+                    const errorMessage = data.message || 'Erro ao salvar veterinário.';
+                    showFormMessage(errorMessage, true);
+                }
+
+            } catch (error) {
+                showFormMessage(`Erro na requisição: ${error.message}`, true);
+                console.error('Erro na requisição de veterinários:', error);
+            }
+        });
+
+
+        // --- LÓGICA DE EXCLUSÃO (do script-gerenciar-veterinarios.js) ---
+        async function deleteVeterinario(id) {
+            if (!confirm('Tem certeza que deseja excluir este veterinário?')) {
+                return;
+            }
+            showListMessage(`Excluindo veterinário ${id}...`, false);
+
+            try {
+                const response = await fetchAuthenticated(`${API_VETERINARIOS_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.status === 204) {
+                    showListMessage('Veterinário excluído com sucesso!', false);
+                    loadVeterinarios();
+                } else {
+                    const errorData = await response.json();
+                    const errorMessage = errorData.message || 'Erro ao excluir veterinário.';
+                    showListMessage(errorMessage, true);
+                }
+            } catch (error) {
+                showListMessage(`Erro na requisição de exclusão: ${error.message}`, true);
+                console.error('Erro ao excluir veterinário:', error);
+            }
+        }
+
+
+        // --- LÓGICA DE INICIALIZAÇÃO DA PÁGINA (do script-gerenciar-veterinarios.js) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const userRole = getUserRole();
+
+            if (userRole !== 'ROLE_ADMIN') {
+                alert('Acesso negado. Você não tem permissão para gerenciar veterinários.');
+                window.location.href = 'Login(1920).html'; // Redirecionando para o login como padrão para não-admins
+                return;
+            }
+
+            // Lógica para o botão Voltar ao Painel Inicial
+            const voltarPainelButton = document.getElementById('voltar-painel-button-veterinarios');
+            if (voltarPainelButton) {
+                voltarPainelButton.addEventListener('click', () => {
+                    window.location.href = ADMIN_DASHBOARD_URL; // Redireciona para o painel do administrador
+                });
+            } else {
+                console.error("DEBUG: Botão 'Voltar ao Painel Inicial' não encontrado no HTML!");
+            }
+
+            loadVeterinarios();
+        });
+    </script>
+</body>
+</html>

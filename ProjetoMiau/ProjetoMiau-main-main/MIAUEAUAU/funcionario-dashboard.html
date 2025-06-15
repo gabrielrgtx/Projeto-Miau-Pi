@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miau & Auau - Painel do Funcionário</title>
+    <link rel="stylesheet" href="css/styles-dashboard.css">
+    <style>
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <img src="img/logo1.png" alt="Logo Miau & Auau">
+                <h1>Miau & Auau</h1>
+            </div>
+            <span>Painel do Funcionário</span>
+        </div>
+        <div class="header-right">
+            Bem-vindo(a), <span id="user-email">Funcionário</span>!
+            <button id="logout-button">Sair</button>
+        </div>
+    </header>
+
+    <main>
+        <h2>Gestão da Clínica</h2>
+
+        <section id="gerenciamento-atendimento">
+            <h3>Atendimento ao Cliente</h3>
+            <div class="card-container">
+                <div class="card action-card">
+                    <h4>Agendamentos</h4>
+                    <p>Marcar, editar, cancelar consultas e procedimentos.</p>
+                    <button onclick="location.href='gerenciar-consultas.html'">Gerenciar</button>
+                </div>
+                <div class="card action-card">
+                    <h4>Pacientes</h4>
+                    <p>Cadastrar novos pets e visualizar informações.</p>
+                    <button onclick="location.href='gerenciar-pacientes.html'">Gerenciar</button>
+                </div>
+                <div class="card action-card">
+                    <h4>Tutores</h4>
+                    <p>Consultar e alterar dados de tutores.</p>
+                    <button onclick="location.href='gerenciar-tutores.html'">Gerenciar</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="gerenciamento-prontuarios">
+            <h3>Prontuários e Históricos</h3>
+            <div class="card-container">
+                <div class="card action-card">
+                    <h4>Prontuários Médicos</h4>
+                    <p>Acessar, atualizar e adicionar dados clínicos.</p>
+                    <button onclick="location.href='gerenciar-prontuarios.html'">Gerenciar</button>
+                </div>
+                <div class="card action-card">
+                    <h4>Exames e Prescrições</h4>
+                    <p>Registrar resultados e receitas.</p>
+                    <button onclick="location.href='#'">Gerenciar</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="outras-acoes">
+            <h3>Outras Ações</h3>
+            <div class="card-container">
+                <div class="card action-card">
+                    <h4>Veterinários</h4>
+                    <p>Visualizar informações e horários de atendimento.</p>
+                    <button onclick="location.href='gerenciar-veterinarios.html'">Visualizar</button>
+                </div>
+                <div class="card action-card">
+                    <h4>Serviços da Clínica</h4>
+                    <p>Consultar lista de serviços oferecidos.</p>
+                    <button onclick="location.href='#'">Visualizar</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Miau & Auau. Painel do Funcionário.</p>
+    </footer>
+
+    <script src="js/script-dashboard-universal.js"></script>
+    </body>
+</html>

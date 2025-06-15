@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miau & Auau - Gerenciar Prontuários</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0e6ef;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .header-left .logo h1 {
+            color: #8c52ff;
+            margin: 0;
+            font-family: 'Chewy', sans-serif;
+            font-size: 28px;
+        }
+
+        .header-right {
+            font-size: 16px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-right button#logout-button {
+            background-color: #ff8c00;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right button#logout-button:hover {
+            background-color: #e07b00;
+        }
+
+        .header-right .header-button {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .header-right .header-button:hover {
+            background-color: #5a6268;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #8c52ff;
+            margin-bottom: 25px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        section h3 {
+            color: #ff8c00;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ff8c00;
+            padding-bottom: 5px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .card h4 {
+            color: #8c52ff;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .action-buttons button {
+            background-color: #8c52ff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .action-buttons button:hover {
+            background-color: #703ade;
+        }
+
+        #prontuario-form { 
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="datetime-local"],
+        .form-group textarea {
+            width: calc(100% - 24px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group small {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        #prontuario-form button[type="submit"] {
+            margin-right: 10px;
+            width: auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #8c52ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #prontuario-form button[type="submit"]:hover {
+            background-color: #703ade;
+        }
+
+        #cancelar-edicao {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        #cancelar-edicao:hover {
+            background-color: #5a6268;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        #prontuarios-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #prontuarios-table th,
+        #prontuarios-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        #prontuarios-table th {
+            background-color: #f2f2f2;
+            color: #555;
+            font-weight: bold;
+        }
+
+        #prontuarios-table tbody tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        #prontuarios-table tbody tr:hover {
+            background-color: #e9e9e9;
+        }
+
+        #prontuarios-table td .button {
+            padding: 5px 10px;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        #prontuarios-table td .button.edit {
+            background-color: #ff8c00;
+        }
+
+        #prontuarios-table td .button.edit:hover {
+            background-color: #e07b00;
+        }
+
+        #prontuarios-table td .button.delete {
+            background-color: #dc3545;
+        }
+
+        #prontuarios-table td .button.delete:hover {
+            background-color: #c82333;
+        }
+
+        #form-message, #list-message {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            display: block;
+        }
+
+        #form-message.success, #list-message.success {
+            color: green;
+        }
+
+        #form-message.error, #list-message.error {
+            color: red;
+        }
+
+        #voltar-painel-button-prontuarios {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #voltar-painel-button-prontuarios:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <img src="img/logo1.png" alt="Logo Miau & Auau">
+                <h1>Miau & Auau</h1>
+            </div>
+            <span>Gerenciar Prontuários</span>
+        </div>
+        <div class="header-right">
+            Bem-vindo(a), <span id="user-email">Usuário</span>!
+            <a href="admin-dashboard.html" class="button secondary header-button">Voltar ao Painel</a>
+            <button id="logout-button">Sair</button>
+        </div>
+    </header>
+
+    <main>
+        <h2>Gerenciamento de Prontuários</h2>
+
+        <section id="form-section">
+            <h3>Adicionar / Editar Prontuário</h3>
+            <form id="prontuario-form">
+                <input type="hidden" id="prontuario-id">
+                
+                <div class="form-group">
+                    <label for="paciente-id">ID do Paciente:<span class="required">*</span></label>
+                    <input type="number" id="paciente-id" required>
+                    <small>Este deve ser o ID de um Pet existente.</small>
+                </div>
+                <div class="form-group">
+                    <label for="data-criacao">Data de Criação:<span class="required">*</span></label>
+                    <input type="datetime-local" id="data-criacao" required>
+                </div>
+                <div class="form-group">
+                    <label for="observacoes-gerais">Observações Gerais:</label>
+                    <textarea id="observacoes-gerais" rows="5"></textarea>
+                </div>
+                
+                <button type="submit" class="button primary">Salvar Prontuário</button>
+                <button type="button" id="cancelar-edicao" class="button secondary">Cancelar Edição</button>
+                <p id="form-message"></p>
+            </form>
+        </section>
+
+        <section id="list-section">
+            <h3>Lista de Prontuários</h3>
+            <div class="table-responsive">
+                <table id="prontuarios-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Paciente</th>
+                            <th>Data Criação</th>
+                            <th>Observações</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            <p id="list-message"></p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Miau & Auau. Gerenciamento de Prontuários.</p>
+        <button id="voltar-painel-button-prontuarios" class="button secondary" style="margin-top: 10px;">Voltar ao Painel Inicial</button>
+    </footer>
+
+    <script>
+        // INÍCIO DO JAVASCRIPT CONSOLIDADO
+        // --- CONFIGURAÇÕES GERAIS ---
+        const API_PRONTUARIOS_URL = 'http://localhost:8080/api/prontuarios';
+        const API_PACIENTES_URL = 'http://localhost:8080/api/pacientes'; // Para validar ID do paciente
+
+        // URLs de redirecionamento
+        const LOGIN_PAGE_URL = 'Login(1920).html';
+        const ADMIN_DASHBOARD_URL = 'admin-dashboard.html';
+        const FUNCIONARIO_DASHBOARD_URL = 'funcionario-dashboard.html';
+        const VETERINARIO_DASHBOARD_URL = 'veterinario-dashboard.html';
+
+
+        // --- FUNÇÕES AUXILIARES DE AUTENTICAÇÃO E REQUISIÇÃO (do script-dashboard-universal.js) ---
+        function getUserEmail() { return localStorage.getItem('userEmail'); }
+        function getUserPassword() { return localStorage.getItem('userPassword'); }
+        function getUserRole() { return localStorage.getItem('userRole'); }
+
+        // Função de logout (do script-dashboard-universal.js)
+        function handleLogout() {
+            console.log("DEBUG: Botão Sair clicado. Realizando logout...");
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userPassword');
+            window.location.href = LOGIN_PAGE_URL;
+        }
+
+        async function fetchAuthenticated(url, options = {}) {
+            const userEmail = getUserEmail();
+            const userPassword = getUserPassword();
+
+            if (!userEmail || !userPassword) {
+                alert('Sua sessão expirou ou credenciais incompletas. Por favor, faça login novamente.');
+                window.location.href = LOGIN_PAGE_URL;
+                throw new Error('Credenciais de autenticação ausentes.');
+            }
+
+            const authHeader = 'Basic ' + btoa(`${userEmail}:${userPassword}`);
+            
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': authHeader,
+                ...options.headers
+            };
+
+            const config = {
+                ...options,
+                headers: headers
+            };
+
+            const response = await fetch(url, config);
+
+            if (response.status === 401 || response.status === 403) {
+                alert('Acesso negado. Você não tem permissão para esta ação. Por favor, faça login novamente.');
+                window.location.href = LOGIN_PAGE_URL;
+                throw new Error('Acesso não autorizado.');
+            }
+
+            return response;
+        }
+
+        // --- FUNÇÕES DE FEEDBACK (do script-gerenciar-prontuarios.js) ---
+        function showFormMessage(message, isError = false) {
+            const messageElement = document.getElementById('form-message');
+            messageElement.textContent = message;
+            messageElement.className = isError ? 'error' : 'success';
+            messageElement.style.display = 'block';
+        }
+
+        function showListMessage(message, isError = false) {
+            const messageElement = document.getElementById('list-message');
+            messageElement.textContent = message;
+            messageElement.className = isError ? 'error' : 'success';
+            messageElement.style.display = 'block';
+        }
+
+        function clearForm() {
+            document.getElementById('prontuario-id').value = '';
+            document.getElementById('paciente-id').value = '';
+            document.getElementById('data-criacao').value = '';
+            document.getElementById('observacoes-gerais').value = '';
+            showFormMessage('', false);
+        }
+
+        // --- LÓGICA DE CARREGAMENTO E EXIBIÇÃO (do script-gerenciar-prontuarios.js) ---
+        async function loadProntuarios() {
+            const tbody = document.querySelector('#prontuarios-table tbody');
+            tbody.innerHTML = '<tr><td colspan="5">Carregando prontuários...</td></tr>';
+            showListMessage('', false);
+
+            try {
+                const response = await fetchAuthenticated(API_PRONTUARIOS_URL);
+                const prontuarios = await response.json();
+
+                tbody.innerHTML = '';
+
+                if (prontuarios.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5">Nenhum prontuário cadastrado.</td></tr>';
+                    return;
+                }
+
+                prontuarios.forEach(prontuario => {
+                    const row = tbody.insertRow();
+                    row.insertCell().textContent = prontuario.id;
+                    row.insertCell().textContent = prontuario.paciente ? prontuario.paciente.nome : 'N/A';
+                    row.insertCell().textContent = prontuario.dataCriacao ? new Date(prontuario.dataCriacao).toLocaleString() : 'N/A';
+                    row.insertCell().textContent = prontuario.observacoesGerais || 'N/A';
+
+                    const actionsCell = row.insertCell();
+                    const editButton = document.createElement('button');
+                    editButton.textContent = 'Editar';
+                    editButton.className = 'button edit';
+                    editButton.addEventListener('click', () => editProntuario(prontuario));
+                    actionsCell.appendChild(editButton);
+
+                    const userRole = getUserRole();
+                    // Apenas ROLE_ADMIN pode deletar prontuários
+                    if (userRole === 'ROLE_ADMIN') {
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Excluir';
+                        deleteButton.className = 'button delete';
+                        deleteButton.addEventListener('click', () => deleteProntuario(prontuario.id));
+                        actionsCell.appendChild(deleteButton);
+                    }
+                });
+                showListMessage('Prontuários carregados com sucesso.', false);
+
+            } catch (error) {
+                showListMessage(`Erro ao carregar prontuários: ${error.message}`, true);
+                console.error('Erro ao carregar prontuários:', error);
+            }
+        }
+
+        // --- LÓGICA DE EDIÇÃO ---
+        function editProntuario(prontuario) {
+            document.getElementById('prontuario-id').value = prontuario.id;
+            document.getElementById('paciente-id').value = prontuario.paciente ? prontuario.paciente.id : '';
+            document.getElementById('data-criacao').value = prontuario.dataCriacao ? new Date(prontuario.dataCriacao).toISOString().slice(0, 16) : '';
+            document.getElementById('observacoes-gerais').value = prontuario.observacoesGerais || '';
+
+            showFormMessage('Editando prontuário...', false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('cancelar-edicao').addEventListener('click', () => {
+            clearForm();
+            showFormMessage('Formulário limpo.', false);
+        });
+
+        // --- LÓGICA DE SUBMISSÃO DO FORMULÁRIO (ADD/EDIT) ---
+        document.getElementById('prontuario-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const prontuarioId = document.getElementById('prontuario-id').value;
+            const pacienteId = document.getElementById('paciente-id').value;
+            const dataCriacao = document.getElementById('data-criacao').value; // String YYYY-MM-DDTHH:MM
+            const observacoesGerais = document.getElementById('observacoes-gerais').value.trim();
+
+            // Validações básicas do front-end
+            if (!pacienteId || !dataCriacao) {
+                showFormMessage('Por favor, preencha os campos obrigatórios.', true);
+                return;
+            }
+            if (isNaN(pacienteId) || parseInt(pacienteId) <= 0) {
+                showFormMessage('ID do Paciente deve ser um número positivo.', true);
+                return;
+            }
+
+            const prontuarioData = {
+                id: prontuarioId === '' ? null : Number(prontuarioId),
+                paciente: { id: Number(pacienteId) }, // Envia apenas o ID do paciente
+                dataCriacao: dataCriacao + ':00', // Adiciona segundos para formato ISO completo
+                observacoesGerais: observacoesGerais
+            };
+
+            let url = API_PRONTUARIOS_URL;
+            let method = 'POST';
+
+            if (prontuarioId) {
+                url = `${API_PRONTUARIOS_URL}/${prontuarioId}`;
+                method = 'PUT';
+            }
+            
+            try {
+                const response = await fetchAuthenticated(url, {
+                    method: method,
+                    body: JSON.stringify(prontuarioData)
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showFormMessage(data.message || `Prontuário ${prontuarioId ? 'atualizado' : 'adicionado'} com sucesso!`, false);
+                    clearForm();
+                    loadProntuarios();
+                } else {
+                    const errorMessage = data.message || 'Erro ao salvar prontuário.';
+                    showFormMessage(errorMessage, true);
+                }
+
+            } catch (error) {
+                showFormMessage(`Erro na requisição: ${error.message}`, true);
+                console.error('Erro ao salvar prontuário:', error);
+            }
+        });
+
+
+        // --- LÓGICA DE EXCLUSÃO ---
+        async function deleteProntuario(id) {
+            if (!confirm('Tem certeza que deseja excluir este prontuário?')) {
+                return;
+            }
+            showListMessage(`Excluindo prontuário ${id}...`, false);
+
+            try {
+                const response = await fetchAuthenticated(`${API_PRONTUARIOS_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.status === 204) {
+                    showListMessage('Prontuário excluído com sucesso!', false);
+                    loadProntuarios();
+                } else {
+                    const errorData = await response.json();
+                    const errorMessage = errorData.message || 'Erro ao excluir prontuário.';
+                    showListMessage(errorMessage, true);
+                }
+            } catch (error) {
+                showListMessage(`Erro na requisição de exclusão: ${error.message}`, true);
+                console.error('Erro ao excluir prontuário:', error);
+            }
+        }
+
+
+        // --- LÓGICA DE INICIALIZAÇÃO DA PÁGINA ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const userRole = getUserRole();
+
+            // Permissões: ADMIN, FUNCIONARIO, VETERINARIO podem gerenciar prontuários
+            if (userRole !== 'ROLE_ADMIN' && userRole !== 'ROLE_FUNCIONARIO' && userRole !== 'ROLE_VETERINARIO') {
+                alert('Acesso negado. Você não tem permissão para gerenciar prontuários.');
+                window.location.href = 'Login(1920).html';
+                return;
+            }
+
+            // Lógica para o botão Voltar ao Painel Inicial
+            const voltarPainelButton = document.getElementById('voltar-painel-button-prontuarios');
+            if (voltarPainelButton) {
+                voltarPainelButton.addEventListener('click', () => {
+                    let redirectUrl;
+                    switch(userRole) {
+                        case 'ROLE_ADMIN':
+                            redirectUrl = ADMIN_DASHBOARD_URL;
+                            break;
+                        case 'ROLE_FUNCIONARIO':
+                        case 'ROLE_VETERINARIO':
+                            redirectUrl = FUNCIONARIO_DASHBOARD_URL;
+                            break;
+                        default:
+                            redirectUrl = LOGIN_PAGE_URL;
+                    }
+                    window.location.href = redirectUrl;
+                });
+            } else {
+                console.error("DEBUG: Botão 'Voltar ao Painel Inicial' não encontrado no HTML!");
+            }
+
+            loadProntuarios();
+        });
+    </script>
+</body>
+</html>

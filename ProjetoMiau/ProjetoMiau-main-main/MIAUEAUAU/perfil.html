@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Miau & Auau – Perfil</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/perfil-novo.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-container">
+      <div class="logo-container">
+        <a href="Pagina inicial.html" class="logo-link">
+          <img src="img/logo1.png" alt="Logo Miau & Auau" class="header-logo"/>
+          <span class="logo-text">Miau &amp; Auau</span>
+        </a>
+      </div>
+      <nav class="nav-desktop">
+        <a href="perfil.html">Meu perfil</a>
+        <a href="Sobre.html">Sobre</a>
+        <a href="servicos.html">Serviços</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <a href="marcar-consulta.html" class="btn btn--grande btn--circulo">Marcar consulta</a>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="profile-section">
+      <aside class="sidebar">
+        <h2>Seu perfil</h2>
+        <nav class="sidebar-menu">
+          <button class="tab-button active" data-target="consultas">
+            <i class="far fa-calendar-alt"></i> Consultas
+          </button>
+          <button class="tab-button" data-target="dados-pessoais">
+            <i class="far fa-user-circle"></i> Dados Pessoais
+          </button>
+          <button class="tab-button" data-target="meus-pets">
+            <i class="far fa-heart"></i> Meus PETS
+          </button>
+        </nav>
+      </aside>
+
+      <div id="consultas" class="section">
+        <h3>Agende sua Consulta</h3>
+        <div class="consultas-container">
+          <form id="newConsultaForm" class="consulta-form">
+            <div class="field-group">
+              <label for="newConsultaDatetime">
+                <i class="far fa-calendar-alt"></i>
+                <span>Data e Hora</span>
+                <input
+                  type="text"
+                  id="newConsultaDatetime"
+                  placeholder="Selecione data e hora"
+                  required
+                />
+              </label>
+            </div>
+            <div class="field-group">
+              <label for="doctorSelect">
+                <i class="fas fa-user-md"></i>
+                <span>Médico</span>
+                <select id="doctorSelect" required>
+                  <option value="">Selecione o médico</option>
+                  <option
+                    value="kim"
+                    data-name="Dra. Kim Kardashian"
+                    data-specialty="Veterinário"
+                    data-avatar="https://storage.googleapis.com/a1aa/image/861c762e-ca89-4b87-e68e-8188d7f061c7.jpg"
+                  >Dra. Kim Kardashian</option>
+                  <option
+                    value="johndoe"
+                    data-name="Dr. John Doe"
+                    data-specialty="Veterinário"
+                    data-avatar="https://storage.googleapis.com/a1aa/image/example-avatar.jpg"
+                  >Dr. John Doe</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-group">
+              <label for="petSelect">
+                <i class="fas fa-paw"></i>
+                <span>Pet</span>
+                <select id="petSelect" required>
+                  <option value="">Carregando pets...</option>
+                </select>
+              </label>
+            </div>
+            <button type="submit" class="btn-consulta-agendar">
+              <i class="far fa-paper-plane"></i> Agendar
+            </button>
+          </form>
+          <div id="cardsContainer" class="cards-container"></div>
+        </div>
+
+        <template id="appointment-template">
+          <div class="appointment-card">
+            <div class="card-left">
+              <img src="" alt="Avatar Médico" class="avatar"/>
+              <span class="status approved">Aprovada</span>
+              <div class="doctor-info">
+                <h4 class="doctor-name"></h4>
+                <p class="doctor-specialty"></p>
+              </div>
+            </div>
+            <div class="card-group">
+              <div class="info-item">
+                <i class="far fa-calendar-alt"></i>
+                <ul class="schedule-list">
+                  <li class="card-date"></li>
+                  <li class="card-time"></li>
+                </ul>
+              </div>
+              <div class="info-item">
+                <i class="fas fa-cat"></i>
+                <span class="card-pet-name"></span>
+              </div>
+            </div>
+            <div class="card-right">
+              <i class="fas fa-user"></i>
+              <span class="card-type"></span>
+            </div>
+            <button class="cancel-card-btn">Cancelar</button>
+          </div>
+        </template>
+      </div>
+
+      <div id="dados-pessoais" class="section hidden">
+        <h3>Olá <span id="userNameDisplay">Cliente</span>! Abaixo seus dados pessoais</h3>
+        <div class="profile-photo-area">
+          <span>Foto de perfil</span>
+          <img
+            src="img/perfil.jpg"
+            alt="Avatar de perfil"
+            class="profile-picture"
+          />
+          <div class="photo-buttons">
+            <button type="button" class="edit-photo-button">Mudar Foto</button>
+            <button type="button" class="delete-photo-button">Apagar Foto</button>
+          </div>
+          <input type="file" id="fileInput" class="hidden" accept="image/*"/>
+        </div>
+        <form id="profileForm" class="profile-form">
+          <label><span>Nome</span><input id="nome" name="nome" type="text"/></label>
+          <label><span>Sobrenome</span><input id="sobrenome" name="sobrenome" type="text"/></label>
+          <label><span>E-mail</span><input id="email" name="email" type="email"/></label>
+          <label class="position-relative">
+            <span>Senha</span>
+            <input id="senha" name="senha" type="password"/>
+            <span id="toggleSenha" class="toggle-password">Mostrar</span>
+          </label>
+          <label><span>CPF</span><input id="cpf" name="cpf" type="text" maxlength="14"/></label>
+          <button type="submit" class="btn-highlight">Salvar mudanças</button>
+        </form>
+      </div>
+
+      <div id="meus-pets" class="section hidden">
+        <h3>Meus PETS</h3>
+
+        <form id="newPetForm" class="consulta-form">
+          <div class="field-group">
+            <label for="newPetName">
+              <i class="fas fa-paw"></i><span>Nome do PET</span>
+              <input type="text" id="newPetName" placeholder="Digite o nome do PET" required/>
+            </label>
+          </div>
+          <div class="field-group">
+            <label for="newPetPhoto">
+              <i class="fas fa-image"></i><span>Foto (opcional)</span>
+              <input type="file" id="newPetPhoto" accept="image/*"/>
+            </label>
+          </div>
+          <div class="field-group">
+            <label for="newPetType">
+              <i class="fas fa-paw"></i><span>Tipo</span>
+              <select id="newPetType" required>
+                <option value="">Selecione tipo</option>
+                <option value="Cachorro">Cachorro</option>
+                <option value="Gato">Gato</option>
+              </select>
+            </label>
+          </div>
+          <div class="field-group">
+            <label for="newPetAge">
+              <i class="fas fa-birthday-cake"></i><span>Idade (anos)</span>
+              <input type="number" id="newPetAge" min="0" placeholder="Ex: 3" required/>
+            </label>
+          </div>
+          <div class="field-group">
+            <label for="newPetBreed">
+              <i class="fas fa-tag"></i><span>Raça</span>
+              <input type="text" id="newPetBreed" placeholder="Digite a raça" required/>
+            </label>
+          </div>
+          <div class="field-group">
+            <label for="newPetSize">
+              <i class="fas fa-arrows-alt"></i><span>Porte</span>
+              <select id="newPetSize" required>
+                <option value="">Selecione porte</option>
+                <option value="Pequeno porte">Pequeno porte</option>
+                <option value="Médio porte">Médio porte</option>
+                <option value="Grande porte">Grande porte</option>
+              </select>
+            </label>
+          </div>
+        </form>
+
+        <div id="petsContainer" class="cards-container"></div>
+
+        <template id="pet-template">
+          <div class="appointment-card">
+            <div class="card-left">
+              <img src="" alt="Foto do PET" class="avatar"/>
+              <div class="pet-info">
+                <h4 class="pet-name"></h4>
+                <span class="pet-type"></span>
+                <ul class="pet-details">
+                  <li>Idade: <span class="pet-age"></span></li>
+                  <li>Raça: <span class="pet-breed"></span></li>
+                  <li>Porte: <span class="pet-size"></span></li>
+                </ul>
+              </div>
+            </div>
+            <button class="cancel-card-btn">Apagar PET</button>
+          </div>
+        </template>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="img/logo1.png" alt="Logo Miau & Auau" class="footer-logo"/>
+        <span>MIAU &amp; AUAU</span>
+      </div>
+      <div class="footer-info">
+        <div class="footer-section">
+          <p class="footer-title">Horários</p>
+          <p>• Segunda - Domingo: 10 am - 9 pm</p>
+          <p>• Todos os feriados</p>
+        </div>
+        <div class="footer-section">
+          <p class="footer-title">Localização</p>
+          <p>Av. Eng. Eusébio Stevaux, 823 - Santo Amaro, São Paulo - SP, 04696-000</p>
+        </div>
+        <div class="footer-section">
+          <p class="footer-title">Contato</p>
+          <p>Alguma pergunta? Ligue para<br/><strong>617-608-3131</strong></p>
+        </div>
+      </div>
+      <div class="footer-indicators">
+        <span class="indicator primary"></span>
+        <span class="indicator secondary"></span>
+      </div>
+    </div>
+  </footer>
+  <script src="js/perfil.js"></script>
+</body>
+</html>

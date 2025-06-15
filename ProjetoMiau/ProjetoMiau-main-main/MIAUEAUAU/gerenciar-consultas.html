@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miau & Auau - Gerenciar Consultas</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0e6ef;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .header-left .logo h1 {
+            color: #8c52ff;
+            margin: 0;
+            font-family: 'Chewy', sans-serif;
+            font-size: 28px;
+        }
+
+        .header-right {
+            font-size: 16px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-right button#logout-button {
+            background-color: #ff8c00; 
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right button#logout-button:hover {
+            background-color: #e07b00;
+        }
+
+        .header-right .header-button {
+            background-color: #6c757d; 
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .header-right .header-button:hover {
+            background-color: #5a6268;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #8c52ff;
+            margin-bottom: 25px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        section h3 {
+            color: #ff8c00;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ff8c00;
+            padding-bottom: 5px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .card h4 {
+            color: #8c52ff;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .action-buttons button {
+            background-color: #8c52ff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .action-buttons button:hover {
+            background-color: #703ade;
+        }
+
+        #consulta-form { 
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="datetime-local"],
+        .form-group select, 
+        .form-group textarea { 
+            width: calc(100% - 24px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group small {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        #consulta-form button[type="submit"] {
+            margin-right: 10px;
+            width: auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #8c52ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #consulta-form button[type="submit"]:hover {
+            background-color: #703ade;
+        }
+
+        #cancelar-edicao {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        #cancelar-edicao:hover {
+            background-color: #5a6268;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        #consultas-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #consultas-table th,
+        #consultas-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        #consultas-table th {
+            background-color: #f2f2f2;
+            color: #555;
+            font-weight: bold;
+        }
+
+        #consultas-table tbody tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        #consultas-table tbody tr:hover {
+            background-color: #e9e9e9;
+        }
+
+        #consultas-table td .button {
+            padding: 5px 10px;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        #consultas-table td .button.edit {
+            background-color: #ff8c00;
+        }
+
+        #consultas-table td .button.edit:hover {
+            background-color: #e07b00;
+        }
+
+        #consultas-table td .button.delete {
+            background-color: #dc3545;
+        }
+
+        #consultas-table td .button.delete:hover {
+            background-color: #c82333;
+        }
+
+        #consultas-table td .button.confirm { 
+            background-color: #28a745; 
+            margin-left: 5px;
+        }
+        #consultas-table td .button.confirm:hover {
+            background-color: #218838;
+        }
+
+        #form-message, #list-message {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            display: block;
+        }
+
+        #form-message.success, #list-message.success {
+            color: green;
+        }
+
+        #form-message.error, #list-message.error {
+            color: red;
+        }
+
+        #voltar-painel-button-consultas {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #voltar-painel-button-consultas:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <img src="img/logo1.png" alt="Logo Miau & Auau">
+                <h1>Miau & Auau</h1>
+            </div>
+            <span>Gerenciar Consultas</span>
+        </div>
+        <div class="header-right">
+            Bem-vindo(a), <span id="user-email">Usuário</span>!
+            <a href="admin-dashboard.html" class="button secondary header-button">Voltar ao Painel</a>
+            <button id="logout-button">Sair</button>
+        </div>
+    </header>
+
+    <main>
+        <h2>Gerenciamento de Consultas</h2>
+
+        <section id="form-section">
+            <h3>Agendar / Editar Consulta</h3>
+            <form id="consulta-form">
+                <input type="hidden" id="consulta-id">
+                
+                <div class="form-group">
+                    <label for="paciente-id">ID do Paciente:<span class="required">*</span></label>
+                    <input type="number" id="paciente-id" required>
+                    <small>Este deve ser o ID de um Pet existente.</small>
+                </div>
+                <div class="form-group">
+                    <label for="veterinario-id">ID do Veterinário:<span class="required">*</span></label>
+                    <input type="number" id="veterinario-id" required>
+                    <small>Este deve ser o ID de um Veterinário existente.</small>
+                </div>
+                <div class="form-group">
+                    <label for="data-hora">Data e Hora:<span class="required">*</span></label>
+                    <input type="datetime-local" id="data-hora" required>
+                </div>
+                <div class="form-group">
+                    <label for="motivo">Motivo da Consulta:</label>
+                    <textarea id="motivo" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tipo-atendimento">Tipo de Atendimento:<span class="required">*</span></label>
+                    <select id="tipo-atendimento" required>
+                        <option value="">Selecione um tipo</option>
+                        <option value="CONSULTA_GERAL">Consulta Geral</option>
+                        <option value="VACINACAO">Vacinação</option>
+                        <option value="EXAME">Exame</option>
+                        <option value="CIRURGIA">Cirurgia</option>
+                        <option value="RETORNO">Retorno</option>
+                        <option value="EMERGENCIA">Emergência</option>
+                    </select>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="confirmada">
+                    <label for="confirmada">Consulta Confirmada?</label>
+                </div>
+                
+                <button type="submit" class="button primary">Salvar Consulta</button>
+                <button type="button" id="cancelar-edicao" class="button secondary">Cancelar Edição</button>
+                <p id="form-message"></p>
+            </form>
+        </section>
+
+        <section id="list-section">
+            <h3>Lista de Consultas</h3>
+            <div class="table-responsive">
+                <table id="consultas-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Paciente</th>
+                            <th>Veterinário</th>
+                            <th>Data/Hora</th>
+                            <th>Motivo</th>
+                            <th>Tipo</th>
+                            <th>Confirmada</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            <p id="list-message"></p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Miau & Auau. Gerenciamento de Consultas.</p>
+        <button id="voltar-painel-button-consultas" class="button secondary" style="margin-top: 10px;">Voltar ao Painel Inicial</button>
+    </footer>
+
+    <script>
+        const API_CONSULTAS_URL = 'http://localhost:8080/api/consultas';
+        const API_PACIENTES_URL = 'http://localhost:8080/api/pacientes'; 
+        const API_VETERINARIOS_URL = 'http://localhost:8080/api/veterinarios'; 
+
+        const LOGIN_PAGE_URL = 'Login(1920).html';
+        const ADMIN_DASHBOARD_URL = 'admin-dashboard.html';
+        const FUNCIONARIO_DASHBOARD_URL = 'funcionario-dashboard.html';
+        const VETERINARIO_DASHBOARD_URL = 'veterinario-dashboard.html';
+
+        function getUserEmail() { return localStorage.getItem('userEmail'); }
+        function getUserPassword() { return localStorage.getItem('userPassword'); }
+        function getUserRole() { return localStorage.getItem('userRole'); }
+
+        function handleLogout() {
+            console.log("DEBUG: Botão Sair clicado. Realizando logout...");
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userPassword');
+            window.location.href = LOGIN_PAGE_URL;
+        }
+
+        async function fetchAuthenticated(url, options = {}) {
+            const userEmail = getUserEmail();
+            const userPassword = getUserPassword();
+
+            if (!userEmail || !userPassword) {
+                alert('Sua sessão expirou ou credenciais incompletas. Por favor, faça login novamente.');
+                window.location.href = LOGIN_PAGE_URL;
+                throw new Error('Credenciais de autenticação ausentes.');
+            }
+
+            const authHeader = 'Basic ' + btoa(`${userEmail}:${userPassword}`);
+            
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': authHeader,
+                ...options.headers
+            };
+
+            const config = {
+                ...options,
+                headers: headers
+            };
+
+            const response = await fetch(url, config);
+
+            if (response.status === 401 || response.status === 403) {
+                alert('Acesso negado. Você não tem permissão para esta ação. Por favor, faça login novamente.');
+                window.location.href = LOGIN_PAGE_URL;
+                throw new Error('Acesso não autorizado.');
+            }
+
+            return response;
+        }
+
+        function showFormMessage(message, isError = false) {
+            const messageElement = document.getElementById('form-message');
+            messageElement.textContent = message;
+            messageElement.className = isError ? 'error' : 'success';
+            messageElement.style.display = 'block';
+        }
+
+        function showListMessage(message, isError = false) {
+            const messageElement = document.getElementById('list-message');
+            messageElement.textContent = message;
+            messageElement.className = isError ? 'error' : 'success';
+            messageElement.style.display = 'block';
+        }
+
+        function clearForm() {
+            document.getElementById('consulta-id').value = '';
+            document.getElementById('paciente-id').value = '';
+            document.getElementById('veterinario-id').value = '';
+            document.getElementById('data-hora').value = '';
+            document.getElementById('motivo').value = '';
+            document.getElementById('tipo-atendimento').value = '';
+            document.getElementById('confirmada').checked = false;
+            showFormMessage('', false);
+        }
+
+        async function loadConsultas() {
+            const tbody = document.querySelector('#consultas-table tbody');
+            tbody.innerHTML = '<tr><td colspan="8">Carregando consultas...</td></tr>';
+            showListMessage('', false);
+
+            try {
+                const response = await fetchAuthenticated(API_CONSULTAS_URL);
+                const consultas = await response.json();
+
+                tbody.innerHTML = '';
+
+                if (consultas.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8">Nenhuma consulta cadastrada.</td></tr>';
+                    return;
+                }
+
+                consultas.forEach(consulta => {
+                    const row = tbody.insertRow();
+                    row.insertCell().textContent = consulta.id;
+                    row.insertCell().textContent = consulta.paciente ? consulta.paciente.nome : 'N/A';
+                    row.insertCell().textContent = consulta.veterinario ? consulta.veterinario.user.nome + ' ' + consulta.veterinario.user.sobrenome : 'N/A';
+                    row.insertCell().textContent = consulta.dataHora ? new Date(consulta.dataHora).toLocaleString() : 'N/A';
+                    row.insertCell().textContent = consulta.motivo || 'N/A';
+                    row.insertCell().textContent = consulta.tipoAtendimento || 'N/A';
+                    row.insertCell().textContent = consulta.confirmada ? 'Sim' : 'Não';
+
+                    const actionsCell = row.insertCell();
+                    const editButton = document.createElement('button');
+                    editButton.textContent = 'Editar';
+                    editButton.className = 'button edit';
+                    editButton.addEventListener('click', () => editConsulta(consulta));
+                    actionsCell.appendChild(editButton);
+
+                    if (!consulta.confirmada && (getUserRole() === 'ROLE_FUNCIONARIO' || getUserRole() === 'ROLE_VETERINARIO' || getUserRole() === 'ROLE_ADMIN')) {
+                        const confirmButton = document.createElement('button');
+                        confirmButton.textContent = 'Confirmar';
+                        confirmButton.className = 'button confirm';
+                        confirmButton.addEventListener('click', () => confirmConsulta(consulta.id));
+                        actionsCell.appendChild(confirmButton);
+                    }
+
+                    const userRole = getUserRole();
+                    if (userRole === 'ROLE_ADMIN') {
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Excluir';
+                        deleteButton.className = 'button delete';
+                        deleteButton.addEventListener('click', () => deleteConsulta(consulta.id));
+                        actionsCell.appendChild(deleteButton);
+                    }
+                });
+                showListMessage('Consultas carregadas com sucesso.', false);
+
+            } catch (error) {
+                showListMessage(`Erro ao carregar consultas: ${error.message}`, true);
+                console.error('Erro ao carregar consultas:', error);
+            }
+        }
+
+        function editConsulta(consulta) {
+            document.getElementById('consulta-id').value = consulta.id;
+            document.getElementById('paciente-id').value = consulta.paciente ? consulta.paciente.id : '';
+            document.getElementById('veterinario-id').value = consulta.veterinario ? consulta.veterinario.id : '';
+            document.getElementById('data-hora').value = consulta.dataHora ? new Date(consulta.dataHora).toISOString().slice(0, 16) : '';
+            document.getElementById('motivo').value = consulta.motivo || '';
+            document.getElementById('tipo-atendimento').value = consulta.tipoAtendimento || '';
+            document.getElementById('confirmada').checked = consulta.confirmada;
+            showFormMessage('Editando consulta...', false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('cancelar-edicao').addEventListener('click', () => {
+            clearForm();
+            showFormMessage('Formulário limpo.', false);
+        });
+
+        document.getElementById('consulta-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const consultaId = document.getElementById('consulta-id').value;
+            const pacienteId = document.getElementById('paciente-id').value;
+            const veterinarioId = document.getElementById('veterinario-id').value;
+            const dataHora = document.getElementById('data-hora').value;
+            const motivo = document.getElementById('motivo').value.trim();
+            const tipoAtendimento = document.getElementById('tipo-atendimento').value;
+            const confirmada = document.getElementById('confirmada').checked;
+
+            if (!pacienteId || !veterinarioId || !dataHora || !tipoAtendimento) {
+                showFormMessage('Por favor, preencha os campos obrigatórios.', true);
+                return;
+            }
+            if (isNaN(pacienteId) || parseInt(pacienteId) <= 0) {
+                showFormMessage('ID do Paciente deve ser um número positivo.', true);
+                return;
+            }
+            if (isNaN(veterinarioId) || parseInt(veterinarioId) <= 0) {
+                showFormMessage('ID do Veterinário deve ser um número positivo.', true);
+                return;
+            }
+
+            const consultaData = {
+                id: consultaId === '' ? null : Number(consultaId),
+                paciente: { id: Number(pacienteId) }, 
+                veterinario: { id: Number(veterinarioId) }, 
+                dataHora: dataHora + ':00', 
+                motivo: motivo,
+                tipoAtendimento: tipoAtendimento,
+                confirmada: confirmada
+            };
+
+            let url = API_CONSULTAS_URL;
+            let method = 'POST';
+
+            if (consultaId) {
+                url = `${API_CONSULTAS_URL}/${consultaId}`;
+                method = 'PUT';
+            }
+            
+            try {
+                const response = await fetchAuthenticated(url, {
+                    method: method,
+                    body: JSON.stringify(consultaData)
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showFormMessage(data.message || `Consulta ${consultaId ? 'atualizada' : 'agendada'} com sucesso!`, false);
+                    clearForm();
+                    loadConsultas();
+                } else {
+                    const errorMessage = data.message || 'Erro ao salvar consulta.';
+                    showFormMessage(errorMessage, true);
+                }
+
+            } catch (error) {
+                showFormMessage(`Erro na requisição: ${error.message}`, true);
+                console.error('Erro ao salvar consulta:', error);
+            }
+        });
+
+        async function confirmConsulta(id) {
+            if (!confirm('Tem certeza que deseja CONFIRMAR esta consulta?')) {
+                return;
+            }
+            showListMessage(`Confirmando consulta ${id}...`, false);
+
+            try {
+                const response = await fetchAuthenticated(`${API_CONSULTAS_URL}/${id}/confirmar`, {
+                    method: 'PUT'
+                });
+
+                if (response.ok) {
+                    showListMessage('Consulta confirmada com sucesso!', false);
+                    loadConsultas();
+                } else {
+                    const errorData = await response.json();
+                    const errorMessage = errorData.message || 'Erro ao confirmar consulta.';
+                    showListMessage(errorMessage, true);
+                }
+            } catch (error) {
+                showListMessage(`Erro na requisição de confirmação: ${error.message}`, true);
+                console.error('Erro ao confirmar consulta:', error);
+            }
+        }
+
+
+        async function deleteConsulta(id) {
+            if (!confirm('Tem certeza que deseja excluir esta consulta?')) {
+                return;
+            }
+            showListMessage(`Excluindo consulta ${id}...`, false);
+
+            try {
+                const response = await fetchAuthenticated(`${API_CONSULTAS_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.status === 204) {
+                    showListMessage('Consulta excluída com sucesso!', false);
+                    loadConsultas();
+                } else {
+                    const errorData = await response.json();
+                    const errorMessage = errorData.message || 'Erro ao excluir consulta.';
+                    showListMessage(errorMessage, true);
+                }
+            } catch (error) {
+                showListMessage(`Erro na requisição de exclusão: ${error.message}`, true);
+                console.error('Erro ao excluir consulta:', error);
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const userRole = getUserRole();
+
+            if (userRole !== 'ROLE_ADMIN' && userRole !== 'ROLE_FUNCIONARIO' && userRole !== 'ROLE_VETERINARIO') {
+                alert('Acesso negado. Você não tem permissão para gerenciar consultas.');
+                window.location.href = 'Login(1920).html';
+                return;
+            }
+
+            const voltarPainelButton = document.getElementById('voltar-painel-button-consultas');
+            if (voltarPainelButton) {
+                voltarPainelButton.addEventListener('click', () => {
+                    let redirectUrl;
+                    switch(userRole) {
+                        case 'ROLE_ADMIN':
+                            redirectUrl = ADMIN_DASHBOARD_URL;
+                            break;
+                        case 'ROLE_FUNCIONARIO':
+                        case 'ROLE_VETERINARIO':
+                            redirectUrl = FUNCIONARIO_DASHBOARD_URL;
+                            break;
+                        default:
+                            redirectUrl = LOGIN_PAGE_URL;
+                    }
+                    window.location.href = redirectUrl;
+                });
+            } else {
+                console.error("DEBUG: Botão 'Voltar ao Painel Inicial' não encontrado no HTML!");
+            }
+
+            loadConsultas();
+        });
+    </script>
+</body>
+</html>

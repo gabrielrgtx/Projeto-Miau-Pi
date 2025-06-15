@@ -1,0 +1,141 @@
+#funcionario-form {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: calc(100% - 24px); 
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; 
+}
+
+.form-group small {
+    display: block;
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+#funcionario-form button[type="submit"] {
+    margin-right: 10px;
+    width: auto;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+#cancelar-edicao {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+#cancelar-edicao:hover {
+    background-color: #5a6268;
+}
+
+.table-responsive {
+    overflow-x: auto; 
+}
+
+#funcionarios-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#funcionarios-table th,
+#funcionarios-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap; 
+}
+
+#funcionarios-table th {
+    background-color: #f2f2f2;
+    color: #555;
+    font-weight: bold;
+}
+
+#funcionarios-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8; 
+}
+
+#funcionarios-table tbody tr:hover {
+    background-color: #e9e9e9;
+}
+
+#funcionarios-table td .button {
+    padding: 5px 10px;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+#funcionarios-table td .button.edit {
+    background-color: #ff8c00;
+}
+
+#funcionarios-table td .button.edit:hover {
+    background-color: #e07b00;
+}
+
+#funcionarios-table td .button.delete {
+    background-color: #dc3545; 
+}
+
+#funcionarios-table td .button.delete:hover {
+    background-color: #c82333;
+}
+
+#form-message, #list-message {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    display: block;
+}
+
+#form-message.success, #list-message.success {
+    color: green;
+}
+
+#form-message.error, #list-message.error {
+    color: red;
+}

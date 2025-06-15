@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miau & Auau - Gerenciar Funcionários</title>
+    <link rel="stylesheet" href="css/styles-dashboard.css">
+    <link rel="stylesheet" href="css/styles-gerenciar-funcionarios.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <img src="img/logo1.png" alt="Logo Miau & Auau">
+                <h1>Miau & Auau</h1>
+            </div>
+            <span>Gerenciar Funcionários</span>
+        </div>
+        <div class="header-right">
+            Bem-vindo(a), <span id="user-email">Admin</span>!
+            <a href="admin-dashboard.html" class="button secondary header-button">Voltar ao Painel</a>
+            <button id="logout-button">Sair</button>
+        </div>
+    </header>
+
+    <main>
+        <h2>Gerenciamento de Funcionários</h2>
+
+        <section id="form-section">
+            <h3>Adicionar / Editar Funcionário</h3>
+            <form id="funcionario-form">
+                <input type="hidden" id="funcionario-id">
+                <input type="hidden" id="user-id">
+                
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="sobrenome">Sobrenome:</label>
+                    <input type="text" id="sobrenome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password"> 
+                    <small>Deixe em branco para não alterar a senha ao editar.</small>
+                </div>
+                <div class="form-group">
+                    <label for="cargo">Cargo:</label>
+                    <input type="text" id="cargo" required>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="administrador">
+                    <label for="administrador">É Administrador?</label>
+                </div>
+                
+                <button type="submit" class="button primary">Salvar Funcionário</button>
+                <button type="button" id="cancelar-edicao" class="button secondary">Cancelar Edição</button>
+                <p id="form-message"></p>
+            </form>
+        </section>
+
+        <section id="list-section">
+            <h3>Lista de Funcionários</h3>
+            <div class="table-responsive">
+                <table id="funcionarios-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>CPF</th>
+                            <th>Cargo</th>
+                            <th>Admin</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            <p id="list-message"></p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Miau & Auau. Gerenciamento de Funcionários.</p>
+        </footer>
+
+    <script src="js/script-dashboard-universal.js"></script>
+    <script src="js/script-gerenciar-funcionarios.js"></script>
+</body>
+</html>

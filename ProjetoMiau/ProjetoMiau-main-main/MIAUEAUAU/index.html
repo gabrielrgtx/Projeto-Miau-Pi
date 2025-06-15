@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Miau & Auau - Marcar Consulta</title>
+  <link rel="stylesheet" href="css/marcar-consulta.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header class="header">
+      <div class="logo">
+        <img src="img/Logomiauauau.png" alt="Logo" class="logo-img" />
+        <text>Miau & Auau</text>
+      </div>
+      <nav class="nav">
+        <a href="perfil.html">Meu perfil</a>
+        <a href="Sobre.html">Sobre</a>
+        <a href="#">Serviços</a>
+        <a href="#">FAQ</a>
+        <a href="marcar-consulta.html" class="btn btn--grande btn--circulo">Marcar consulta</a>
+      </nav>
+    </header>
+
+    <section class="banner">
+      <div class="banner-img">
+        <img src="img/cachorrorgato.png" alt="Imagem gato e cachorro" id="choroegat" />
+      </div>
+      <div class="banner-text">
+        <h2>Agende sua consulta agora!</h2>
+        <p>Preencha o formulário abaixo</p>
+      </div>
+    </section>
+
+    <main class="main-content">
+      <section class="form-contact-section">
+        <div class="form-container">
+            <h2>Solicitar serviços</h2>
+            <p>Selecione os serviços do seu interesse e preencha o formulário</p>
+
+            <form id="consulta-form">
+                <div class="form-group">
+                    <label for="services">Selecione o(s) serviço(s) *</label>
+                    <div class="service-buttons">
+                        <button type="button" class="service-btn" data-service-name="Consulta">Consulta</button>
+                        <button type="button" class="service-btn" data-service-name="Exame">Exame</button>
+                        <button type="button" class="service-btn" data-service-name="Cirurgia">Cirurgia</button>
+                        <button type="button" class="service-btn" data-service-name="Vacina">Vacina</button>
+                        <button type="button" class="service-btn" data-service-name="Internação">Internação</button>
+                        <button type="button" class="service-btn" data-service-name="Terapia Por Ozonio">Terapia Por Ozonio</button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half-width">
+                        <label for="pet-type">Selecione o PET *</label>
+                        <select id="pet-type" name="pet-type" required>
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                    <div class="form-group half-width">
+                        <label>Tipo de atendimento? *</label>
+                        <div class="radio-group">
+                            <input type="radio" id="presencial" name="appointment-type" value="Presencial" required>
+                            <label for="presencial">Presencial</label>
+                            <input type="radio" id="por-video" name="appointment-type" value="Por Video" required>
+                            <label for="por-video">Por Video</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half-width">
+                        <label for="date">Data *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group half-width">
+                        <label for="time">Horário *</label>
+                        <select id="time" name="time" required>
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Profissional de preferência? *</label>
+                    <div class="radio-group">
+                        <input type="radio" id="pref-yes" name="professional-pref" value="yes">
+                        <label for="pref-yes">Sim</label>
+                        <input type="radio" id="pref-no" name="professional-pref" value="no" checked>
+                        <label for="pref-no">Não</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="professional-name">Profissional *</label>
+                    <select id="professional-name" name="professional-name" required>
+                        <option value="">Selecione...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="observations">Observações</label>
+                    <input type="text" id="observations" name="observations" required>
+                    </div>
+
+                <p id="consulta-form-message" style="display: none; margin-top: 10px;"></p>
+
+                <button type="submit" class="submit-button">Solicitar serviço</button>
+            </form>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-header">
+                <h2>Contate-nos</h2>
+            </div>
+            <p>Estamos abertos a qualquer sugestão ou apenas para bater um papo!</p>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <img src="img/Vector.png" alt="Phone Icon">
+                    <span><b>Phone:</b></span> 4006-416048
+                </div>
+                <div class="contact-item">
+                    <img src="img/Frame.png" alt="Email Icon">
+                    <span><b>Email:</b></span> qualqueremail@joia.com
+                </div>
+                <div class="contact-item">
+                    <img src="img/Frame (1).png" alt="Address Icon">
+                    <text><b>Address:</b> Av. Eng. Eusébio Stevaux, 823 - Santo Amaro, São Paulo - SP, 04698-000</text>
+                </div>
+            </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>
+        <img src="img/Logomiauauau.png" alt="Logorodape" class="footer-logo" />
+        <text>MIAU & AUAU</text>
+      </div>
+      <div>
+        <strong>Horários</strong>
+        <p>Segunda - Domingo: 10 am - 9 pm</p>
+        <p>Todos os feriados</p>
+      </div>
+      <div>
+        <strong>Localização</strong>
+        <p>Av. Eng. Eusébio Stevaux, 823</p>
+        <p>Santo Amaro, SP</p>
+      </div>
+      <div>
+        <strong>Contato</strong>
+        <p>671-606-3131</p>
+      </div>
+      <div>
+        <strong>Siga-nos</strong>
+        <p>[ Redes sociais ]</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/script-marcar-consulta.js"></script>
+</body>
+</html>

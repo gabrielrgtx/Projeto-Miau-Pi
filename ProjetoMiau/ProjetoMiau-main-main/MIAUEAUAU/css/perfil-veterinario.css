@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chewy&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+     --surface-main: #FFFFFF;
+     --border-accent: #494949;
+     --cor1: #8a8a8a;
+     --texto: "Inter", sans-serif;
+     --fonte-botao2: "Chewy", system-ui;
+     --tam16: 16px;
+     --cor2: #4b4b4b;
+     --fonte-botao: "Montserrat", sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: right;
+    background-color: var(--surface-main);
+    border-bottom: 4px solid var(--border-accent);
+}
+
+body{
+    background-color: #acacac;
+}
+.cabeçalho{
+    display: flex;
+    height: 120px;
+    align-items: center;
+}
+
+.logo{
+    font-family: var(--fonte-botao2);
+    font-size: 32px;
+    color: #7759CC;
+    margin-right: 700px;
+    
+}
+
+.imagem-logo{
+    position: relative;
+    right: -44px;
+   
+    
+}
+
+.texto-meu-perfil{
+    font-family: var(--texto);
+    margin: 20px;
+}
+
+.texto-sobre{
+    font-family: var(--texto);
+    margin: 20px;
+}
+
+.texto-serviços{
+    font-family: var(--texto);
+    margin: 20px;
+}
+
+.texto-FAQ{
+    font-family: var(--texto);
+    margin: 20px;
+}
+
+.texto-marcar-consulta{
+    font-family: var(--fonte-botao2);
+    font-size: 21px;
+    background-color: #E4813A;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    align-content: center;
+    height: 54px;
+    width: 194px;
+    margin: 50px;
+    margin-right: 100px;
+
+}
+
+
+.bloco-perfil{
+    border-radius: 10px;
+    width: 1050px;
+    height: 750px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--surface-main);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+
+.lugar-perfil{
+    height: 1050px;
+}
+
+.cabecalho-perfil{
+    font-family: var(--texto);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    
+}
+
+.seu-perfil{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    width: 210px;
+    height: 100px;
+    border-right: 1px solid var(--cor1);
+    border-bottom: 1px solid var(--cor1);
+    text-decoration: none;
+    text-emphasis: none;
+}
+
+.ola{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 840px;
+    border-bottom: 1px solid var(--cor1);
+    height: 100px;
+    
+}
+
+.campo-consulta-dados{
+    display: flex;
+}
+
+.link{
+    text-decoration: none;
+    color: black;
+} 
+
+.opcao-back-normal{
+    color: black;
+    text-decoration: none;
+    margin-top: 20px;
+    padding-left: 30px;
+    align-content: center;
+    width: 200px;
+    height: 50px;
+    
+}
+
+.opcao-back-amarelo{
+    text-decoration: none;
+    align-content: center;
+    width: 210px;
+    height: 50px;
+    padding-left: 30px;
+    background-color: #fff1bf;
+    border-right: 1px solid #ffcb0d;
+}
+
+.texto-consulta-dados{
+    font-size: 16px;
+    font-family: var(--texto);
+    height: 650px;
+    width: 210px;
+    border-right: 1px solid var(--cor1);
+    
+}
+
+
+.campo-perfil{
+    display: flex;
+    height: 600px;
+    width: 840px;
+    justify-content: center;
+}
+
+
+.texto-foto-perfil{
+    font-family: var(--texto);
+    font-size: 20px;
+    height: 50px;
+    align-content: center;
+    text-align: center;
+    
+}
+.foto-perfil{
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    justify-self: center;
+}
+
+.mudar-apagar-foto{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.mudar-foto{
+    border-radius: 8px;
+    font-family: var(--fonte-botao);
+    height: 35px;
+    width: 150px;
+    text-align: center;
+    align-content: center;
+    background-color: #FFEEB1;
+    border: 1px solid  #fad962;
+    cursor: pointer;
+
+}
+
+.apagar-foto{
+    color: #E80000;
+    background-color: #EFEFEF;
+    border-radius: 8px;
+    font-family: var(--fonte-botao);
+    height: 35px;
+    width: 150px;
+    text-align: center;
+    align-content: center;
+    border: 1px solid  #ec6969;
+    cursor: pointer;
+
+}
+
+.campo-nome{
+    font-family: var(--texto);
+    font-size: var(--tam16);
+    color: var(--cor2);
+    margin-bottom: 5px;
+    margin-top: 10px;
+
+}
+
+.campo-sobrenome{
+    font-family: var(--texto);
+    font-size: var(--tam16);
+    color: var(--cor2);
+     margin-bottom: 5px;
+
+}
+
+.campo-email{
+    font-family: var(--texto);
+    font-size: var(--tam16);
+    color: var(--cor2);
+     margin-bottom: 5px;
+
+}
+
+.campo-senha{
+    font-family: var(--texto);
+    font-size: var(--tam16);
+    color: var(--cor2);
+     margin-bottom: 5px;
+
+}
+
+.campo-CPF{
+        font-family: var(--texto);
+    font-size: var(--tam16);
+    color: var(--cor2);
+     margin-bottom: 5px;
+
+}
+
+
+.layout-input{
+    width: 275px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.campo-input{
+    height: 30px;
+    width: 275px;
+    border-radius: 5px;
+    border: 1px solid var(--cor1);
+    margin-bottom: 5px;
+}
+
+.botao-salvar{
+    font-family: var(--fonte-botao);
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    font-family: var(--fonte-botao);
+    height: 40px;
+    width: 170px;
+    border-radius: 8px;
+    border: 1px solid  #fad962;
+    background-color: #FFEEB1;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    align-content: center;
+    cursor: pointer;
+}
