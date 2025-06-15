@@ -35,6 +35,3 @@ Desenvolver uma aplicação web para um petshop, com funcionalidades voltadas pa
 
 Este projeto é apenas para fins educacionais. Todos os direitos reservados aos autores.
 
----
-
-Caso deseje, posso adaptar esse README para o estilo Markdown do GitHub ou gerar uma versão em inglês. Deseja incluir prints ou link de hospedagem (como GitHub Pages)?
