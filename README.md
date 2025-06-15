@@ -17,6 +17,7 @@ Desenvolver uma aplicação web para um petshop, com funcionalidades voltadas pa
 * **HTML**
 * **CSS**
 * **JavaScript**
+* **Java**
 
  👥 Integrantes
 
