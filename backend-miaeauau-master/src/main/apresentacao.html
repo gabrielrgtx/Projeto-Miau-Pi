@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação Interativa: Backend Clínica Veterinária</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Visualization & Content Choices:
+        - Visão Geral: Text block. Goal: Inform.
+        - Tecnologias: List with icons (Unicode). Goal: Inform.
+        - Estrutura do Projeto: Nested list (HTML/CSS). Goal: Organize.
+        - Entidades: Interactive cards (HTML/CSS/JS). Clicking shows details. Relationships textual. Goal: Organize, Relationships.
+        - API Endpoints: Clickable list (HTML/JS). Shows mock request/response structure. Goal: Inform, Simulate Interaction.
+        - Como Testar: Step-by-step text. Goal: Inform.
+        - Justification: Prioritize clarity and ease of navigation for understanding backend components. Interactions aim to make exploration engaging.
+        - Library/Method: Vanilla JS for interactions, Tailwind for layout. Chart.js/Plotly not needed.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif; /* Tailwind default is Inter */
+        }
+        .tab-button {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #0284c7; /* sky-600 */
+            color: white;
+        }
+        .tab-button:not(.active):hover {
+            background-color: #e0f2fe; /* sky-100 */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .entity-card {
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .entity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .entity-detail {
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+        .entity-detail.open {
+            display: block;
+            max-height: 1000px; /* Adjust as needed */
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .endpoint-item {
+            cursor: pointer;
+        }
+        .endpoint-detail {
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+        .endpoint-detail.open {
+            display: block;
+            max-height: 1000px; /* Adjust as needed */
+        }
+        /* Simple tree structure for project layout */
+        .tree ul {
+            padding-left: 1.5rem;
+            border-left: 1px dashed #cbd5e1; /* slate-300 */
+        }
+        .tree li {
+            position: relative;
+            padding-left: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        .tree li::before {
+            content: '';
+            position: absolute;
+            left: -0.75rem; /* Adjust to align with border-left of ul */
+            top: 0.6rem; /* Adjust vertical alignment */
+            width: 0.75rem;
+            height: 1px;
+            background-color: #cbd5e1; /* slate-300 */
+        }
+        .tree li:last-child > ul {
+            border-left: 1px dashed #cbd5e1; /* Keep border for last child's ul */
+        }
+        .code-like {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f3f4f6; /* gray-100 */
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+<div class="min-h-screen flex flex-col md:flex-row">
+    <aside class="w-full md:w-64 bg-white shadow-lg p-4 md:p-6 space-y-2 md:min-h-screen">
+        <h1 class="text-2xl font-bold text-sky-700 mb-6 text-center md:text-left">Clínica MiauAuAu</h1>
+        <nav id="tabNav" class="space-y-1">
+            <button data-tab="visao-geral" class="tab-button w-full text-left px-4 py-2.5 rounded-md text-slate-700 font-medium">
+                <span class="mr-2">ℹ️</span> Visão Geral
+            </button>
+            <button data-tab="tecnologias" class="tab-button w-full text-left px-4 py-2.5 rounded-md text-slate-700 font-medium">
+                <span class="mr-2">🛠️</span> Tecnologias
+            </button>
+            <button data-tab="estrutura-projeto" class="tab-button w-full text-left px-4 py-2.5 rounded-md text-slate-700 font-medium">
+                <span class="mr-2">📁</span> Estrutura
+            </button>
+            <button data-tab="entidades" class="tab-button w-full text-left px-4 py-2.5 rounded-md text-slate-700 font-medium">
+                <span class="mr-2">🧱</span> Entidades
+            </button>
+            <button data-tab="api-endpoints" class="tab-button w-full text-left px-4 py-2.5 rounded-md text-slate-700 font-medium">
+                <span class="mr-2">🔗</span> API Endpoints
+            </button>
+            <button data-tab="como-testar" class="tab-button w-full text-left px-4 py-2.5 rounded-md text-slate-700 font-medium">
+                <span class="mr-2">🧪</span> Como Testar
+            </button>
+            <button data-tab="proximos-passos" class="tab-button w-full text-left px-4 py-2.5 rounded-md text-slate-700 font-medium">
+                <span class="mr-2">🚀</span> Próximos Passos
+            </button>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-4 md:p-8 lg:p-10 overflow-y-auto">
+        <div id="contentArea">
+            <section id="visao-geral" class="content-section space-y-4 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-semibold text-sky-700 border-b-2 border-sky-200 pb-2">1. O Que é Este Projeto?</h2>
+                <p class="text-lg leading-relaxed">Este é o <strong class="font-semibold text-sky-600">backend (o "cérebro" por trás das telas)</strong> de um sistema para gerenciar uma clínica veterinária. Ele serve para:</p>
+                <ul class="list-disc list-inside space-y-2 pl-4 text-lg">
+                    <li><strong>Cadastrar e controlar:</strong> Veterinários, pacientes, tutores, consultas (prontuários) e horários de disponibilidade dos profissionais.</li>
+                    <li><strong>Fornecer dados:</strong> Qualquer aplicativo (seja um site ou um app de celular) pode se conectar a este backend para acessar e manipular as informações da clínica.</li>
+                </ul>
+            </section>
+
+            <section id="tecnologias" class="content-section space-y-4 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-semibold text-sky-700 border-b-2 border-sky-200 pb-2">2. O Que Usamos (as "Ferramentas")?</h2>
+                <p class="text-lg leading-relaxed">Usamos tecnologias modernas e robustas para construir este backend:</p>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-lg">
+                    <li class="flex items-center"><span class="text-2xl mr-3">☕</span> <strong>Java 17:</strong> A linguagem de programação principal.</li>
+                    <li class="flex items-center"><span class="text-2xl mr-3">🍃</span> <strong>Spring Boot 3.3.10:</strong> Framework que acelera o desenvolvimento.</li>
+                    <li class="flex items-center"><span class="text-2xl mr-3">🐬</span> <strong>MySQL:</strong> Nosso banco de dados relacional.</li>
+                    <li class="flex items-center"><span class="text-2xl mr-3">🗃️</span> <strong>JPA/Hibernate:</strong> Ferramentas para "conversar" com o banco de dados.</li>
+                    <li class="flex items-center"><span class="text-2xl mr-3">📜</span> <strong>Swagger UI (SpringDoc OpenAPI 2.3.0):</strong> Documentação interativa da API.</li>
+                    <li class="flex items-center"><span class="text-2xl mr-3">📄</span> <strong>Lombok:</strong> Ajuda a reduzir código repetitivo.</li>
+                    <li class="flex items-center"><span class="text-2xl mr-3">🛡️</span> <strong>Spring Security:</strong> Camada básica de segurança.</li>
+                    <li class="flex items-center"><span class="text-2xl mr-3">⭐</span> <strong>Caelum Stella Core 2.1.2:</strong> Biblioteca para validar dados como CPF.</li>
+                </ul>
+            </section>
+
+            <section id="estrutura-projeto" class="content-section space-y-4 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-semibold text-sky-700 border-b-2 border-sky-200 pb-2">3. Como o Projeto é Organizado?</h2>
+                <p class="text-lg leading-relaxed">O código é dividido em partes para ficar fácil de entender e manter:</p>
+                <div class="tree text-lg bg-slate-50 p-4 rounded-md">
+                    <ul>
+                        <li><code class="code-like">com.miaueauau.clinica_veterinaria</code>
+                            <ul>
+                                <li><strong class="text-sky-600">controller:</strong> As "portas de entrada" da API. Recebem requisições.</li>
+                                <li><strong class="text-sky-600">service:</strong> A "inteligência" do sistema, com as regras de negócio.</li>
+                                <li><strong class="text-sky-600">model:</strong> As "plantas" dos dados (Veterinário, Paciente, etc.).</li>
+                                <li><strong class="text-sky-600">repository:</strong> Conecta ao banco para salvar, buscar, etc.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="entidades" class="content-section space-y-6 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-semibold text-sky-700 border-b-2 border-sky-200 pb-2">4. As Informações Principais e Como Elas se Conectam</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="entity-card bg-sky-50 p-5 rounded-lg shadow hover:shadow-sky-100" data-entity="veterinario">
+                        <h3 class="text-xl font-semibold text-sky-700 mb-2">Veterinário</h3>
+                        <p class="text-sm text-slate-600">Nome, CRMV, especialidade.</p>
+                        <div class="entity-detail mt-3 pt-3 border-t border-sky-200 text-sm space-y-1">
+                            <p><strong>Relacionamentos:</strong></p>
+                            <ul class="list-disc list-inside pl-2">
+                                <li>Muitas <strong class="text-sky-600">Consultas</strong></li>
+                                <li>Muitas <strong class="text-sky-600">Disponibilidades</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="entity-card bg-sky-50 p-5 rounded-lg shadow hover:shadow-sky-100" data-entity="paciente">
+                        <h3 class="text-xl font-semibold text-sky-700 mb-2">Paciente</h3>
+                        <p class="text-sm text-slate-600">Nome, espécie, raça, peso, idade.</p>
+                        <div class="entity-detail mt-3 pt-3 border-t border-sky-200 text-sm space-y-1">
+                            <p><strong>Relacionamentos:</strong></p>
+                            <ul class="list-disc list-inside pl-2">
+                                <li>Um <strong class="text-sky-600">Tutor</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="entity-card bg-sky-50 p-5 rounded-lg shadow hover:shadow-sky-100" data-entity="tutor">
+                        <h3 class="text-xl font-semibold text-sky-700 mb-2">Tutor</h3>
+                        <p class="text-sm text-slate-600">Nome, CPF, endereço, telefone.</p>
+                        <div class="entity-detail mt-3 pt-3 border-t border-sky-200 text-sm space-y-1">
+                            <p><strong>Relacionamentos:</strong></p>
+                            <ul class="list-disc list-inside pl-2">
+                                <li>Muitos <strong class="text-sky-600">Pacientes</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="entity-card bg-sky-50 p-5 rounded-lg shadow hover:shadow-sky-100" data-entity="consulta">
+                        <h3 class="text-xl font-semibold text-sky-700 mb-2">Consulta (Prontuário)</h3>
+                        <p class="text-sm text-slate-600">Data, hora, motivo, diagnóstico, tratamento, confirmada.</p>
+                        <div class="entity-detail mt-3 pt-3 border-t border-sky-200 text-sm space-y-1">
+                            <p><strong>Relacionamentos:</strong></p>
+                            <ul class="list-disc list-inside pl-2">
+                                <li>Um <strong class="text-sky-600">Paciente</strong></li>
+                                <li>Um <strong class="text-sky-600">Veterinário</strong></li>
+                                <li>Muitos <strong class="text-sky-600">Procedimentos</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="entity-card bg-sky-50 p-5 rounded-lg shadow hover:shadow-sky-100" data-entity="disponibilidade">
+                        <h3 class="text-xl font-semibold text-sky-700 mb-2">Disponibilidade</h3>
+                        <p class="text-sm text-slate-600">Horário de início e fim, observações.</p>
+                        <div class="entity-detail mt-3 pt-3 border-t border-sky-200 text-sm space-y-1">
+                            <p><strong>Relacionamentos:</strong></p>
+                            <ul class="list-disc list-inside pl-2">
+                                <li>Um <strong class="text-sky-600">Veterinário</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="entity-card bg-sky-50 p-5 rounded-lg shadow hover:shadow-sky-100" data-entity="procedimento">
+                        <h3 class="text-xl font-semibold text-sky-700 mb-2">Procedimento</h3>
+                        <p class="text-sm text-slate-600">Nome, descrição, preço.</p>
+                        <div class="entity-detail mt-3 pt-3 border-t border-sky-200 text-sm space-y-1">
+                            <p><strong>Relacionamentos:</strong></p>
+                            <ul class="list-disc list-inside pl-2">
+                                <li>Muitas <strong class="text-sky-600">Consultas</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="api-endpoints" class="content-section space-y-4 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-semibold text-sky-700 border-b-2 border-sky-200 pb-2">5. API Endpoints (Exemplos)</h2>
+                <p class="text-lg leading-relaxed">Acesse <code class="code-like">http://localhost:8080/swagger-ui.html</code> para a documentação interativa completa. Abaixo, alguns exemplos:</p>
+
+                <div class="space-y-3">
+                    <div class="endpoint-item bg-slate-100 p-3 rounded-md hover:bg-slate-200" data-endpoint="get-veterinarios">
+                        <span class="font-mono text-green-600 font-semibold">GET</span> <code class="code-like">/api/veterinarios</code> - Lista todos os veterinários
+                    </div>
+                    <div class="endpoint-detail ml-4 p-3 bg-slate-50 rounded-b-md border-l-4 border-sky-300">
+                        <p class="font-semibold">Descrição:</p>
+                        <p class="text-sm">Retorna uma lista de todos os veterinários cadastrados no sistema.</p>
+                        <p class="font-semibold mt-2">Exemplo de Resposta (200 OK):</p>
+                        <pre class="text-xs bg-gray-800 text-white p-2 rounded-md overflow-x-auto"><code>
+[
+  {
+    "id": 1,
+    "nome": "Dr. Zé da Clínica",
+    "crmv": "CRMV/SP 123456",
+    "especialidade": "Pequenos Animais"
+  },
+  { ... }
+]</code></pre>
+                    </div>
+
+                    <div class="endpoint-item bg-slate-100 p-3 rounded-md hover:bg-slate-200" data-endpoint="post-veterinarios">
+                        <span class="font-mono text-blue-600 font-semibold">POST</span> <code class="code-like">/api/veterinarios</code> - Cria um novo veterinário
+                    </div>
+                    <div class="endpoint-detail ml-4 p-3 bg-slate-50 rounded-b-md border-l-4 border-sky-300">
+                        <p class="font-semibold">Descrição:</p>
+                        <p class="text-sm">Cria um novo registro de veterinário.</p>
+                        <p class="font-semibold mt-2">Exemplo de Corpo da Requisição:</p>
+                        <pre class="text-xs bg-gray-800 text-white p-2 rounded-md overflow-x-auto"><code>
+{
+  "nome": "Dra. Ana Silva",
+  "crmv": "CRMV/RJ 654321",
+  "especialidade": "Felinos"
+}</code></pre>
+                        <p class="font-semibold mt-2">Exemplo de Resposta (201 Created):</p>
+                        <pre class="text-xs bg-gray-800 text-white p-2 rounded-md overflow-x-auto"><code>
+{
+  "id": 11,
+  "nome": "Dra. Ana Silva",
+  "crmv": "CRMV/RJ 654321",
+  "especialidade": "Felinos"
+}</code></pre>
+                    </div>
+                    <p class="text-sm text-slate-600"><em>(Endpoints similares existem para Pacientes, Tutores, Consultas, etc.)</em></p>
+                </div>
+            </section>
+
+            <section id="como-testar" class="content-section space-y-4 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-semibold text-sky-700 border-b-2 border-sky-200 pb-2">6. Como Testar (e Onde Ver a API Funcionando)</h2>
+                <ol class="list-decimal list-inside space-y-3 pl-4 text-lg">
+                    <li><strong>Configure o Banco de Dados:</strong> Você precisa ter um banco de dados MySQL rodando e atualizar o arquivo <code class="code-like">application.properties</code> com suas credenciais.</li>
+                    <li><strong>Rode o Projeto:</strong> Use sua IDE (IntelliJ, Eclipse) ou o comando <code class="code-like">mvn spring-boot:run</code> no terminal.</li>
+                    <li><strong>Acesse o Swagger UI:</strong> Depois que o sistema iniciar, abra seu navegador e vá para: <strong class="text-sky-600 break-all">http://localhost:8080/swagger-ui.html</strong>.</li>
+                </ol>
+                <p class="text-lg leading-relaxed mt-4">Lá você vai conseguir:</p>
+                <ul class="list-disc list-inside space-y-2 pl-4 text-lg">
+                    <li>Ver a lista de todos os "endpoints" (as "portas" da API).</li>
+                    <li><strong>Testar na hora:</strong> Clicar nos endpoints, preencher os dados e ver a resposta da API em tempo real! Por exemplo, você pode listar todos os veterinários (<code class="code-like">GET /api/veterinarios</code>) ou buscar um específico pelo ID (<code class="code-like">GET /api/veterinarios/1</code>).</li>
+                </ul>
+            </section>
+
+            <section id="proximos-passos" class="content-section space-y-4 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-3xl font-semibold text-sky-700 border-b-2 border-sky-200 pb-2">7. Próximos Passos (Ideias para o Futuro)</h2>
+                <ul class="list-disc list-inside space-y-2 pl-4 text-lg">
+                    <li>Adicionar um sistema de login e permissões de acesso (completar o Spring Security).</li>
+                    <li>Melhorar a forma como a API trata erros.</li>
+                    <li>Adicionar filtros e paginação para listas grandes de dados.</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const contentSections = document.querySelectorAll('.content-section');
+        const entityCards = document.querySelectorAll('.entity-card');
+        const endpointItems = document.querySelectorAll('.endpoint-item');
+
+        function showTab(tabId) {
+            contentSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            const activeSection = document.getElementById(tabId);
+            const activeButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
+
+            if (activeSection) activeSection.classList.add('active');
+            if (activeButton) activeButton.classList.add('active');
+
+            // Scroll to top of content area on tab change for better UX on mobile
+            document.querySelector('main').scrollTop = 0;
+        }
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const tabId = this.dataset.tab;
+                showTab(tabId);
+            });
+        });
+
+        // Initialize first tab
+        if (tabButtons.length > 0) {
+            showTab(tabButtons[0].dataset.tab);
+        }
+
+        // Entity card toggle
+        entityCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const detail = this.querySelector('.entity-detail');
+                if (detail) {
+                    detail.classList.toggle('open');
+                }
+            });
+        });
+
+        // Endpoint item toggle
+        endpointItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const detail = this.nextElementSibling; // Assumes detail is immediately after item
+                if (detail && detail.classList.contains('endpoint-detail')) {
+                    detail.classList.toggle('open');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
